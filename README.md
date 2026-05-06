@@ -1,3 +1,3 @@
 # RayFlux 
 
-Basic c++ RayLib Wrapper 
+Basic RayLib Test with Wrapper 

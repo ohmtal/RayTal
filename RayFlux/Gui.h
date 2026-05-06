@@ -2,6 +2,7 @@
 
 #define RAYGUI_IMPLEMENTATION
 #include "raygui_custom.h"
+#include "TypeDef.h"
 
 namespace RayFlux {
 
