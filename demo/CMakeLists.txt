@@ -24,6 +24,8 @@ set(RAYFLUX_SRC
   ${RAYFLUX_DIR}/RayFlux/Main.cpp
   ${RAYFLUX_DIR}/RayFlux/TypeDef.h
   ${RAYFLUX_DIR}/RayFlux/Settings.cpp
+  ${RAYFLUX_DIR}/RayFlux/Gui.h
+  ${RAYFLUX_DIR}/RayFlux/Gui.cpp
 )
 
 # ------------- RayLib
@@ -52,7 +54,7 @@ add_executable(${PROJECT_NAME}
 )
 
 target_include_directories(${PROJECT_NAME} PRIVATE
-    ${RAYFLUX_DIR}/RayFlux/
+    ${RAYFLUX_DIR}
     ${RAYLIB_DIR}/src
     ${RAYFLUX_DIR}/lib/rayspice/
 )
