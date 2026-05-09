@@ -27,6 +27,11 @@ int main(void)
         TraceLog(LOG_ERROR, "%s", "Failed to Initialize!");
         return 1;
     }
+    Image imgLogo = LoadImage("assets/texture/raylib_32x32.png");
+    SetWindowIcon(imgLogo);
+    //TEST can i unload ?  - seams so
+    UnloadImage(imgLogo);
+
 
     //-------
     // add basic lighting demo .....

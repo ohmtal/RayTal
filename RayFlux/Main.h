@@ -16,18 +16,63 @@
  *
  * [ ] Like BaseFlux :
  *      [ ] setFullPath
- *      [ ] bool setWindowIcon(SDL_Window* window, std::string fileName);
+ *      [ ] bool setWindowIcon(Image image);
+ *          Image myImage = LoadImage("..")
+ *          SetWindowIcon(myImage);
+ *          UnloadImage(myImage); // in Test it did (desktop source copy the pixels) work but there are different platforms
  *      [X] Init << bool InitSDL();
- *      [ ] bool initImGui();
+ *      [~] bool initImGui();
  *      [ ] void shutDown();
  *      [X] bool Execute();
  *      [ ] void TerminateApplication(void);
  *
  *      //----------------------------------------------------------------------
- *      [ ] bool playSound(std::string fileName, float gain = 1.0f, bool loop = false);
+ *      [ ] research how sound objects are handled
+ *          NOTE: too bad:  sound and music is handled different ...
+ *              => music.looping = true; << use this for one interface !?
+ *                 but i guess it's better to handle it different
+ *          InitAudioDevice();      // Initialize audio device
+ *          Sound fxWav = LoadSound("resources/sound.wav");         // Load WAV audio file
+ *          // LoadSoundAlias(Sound source) :: UnloadSoundAlias(Sound alias)
+ *          Music music = LoadMusicStream("resources/country.mp3");
+ *          ...
+ *          SetMusicVolume(music, volume);
+ *          SetMusicPan(music, pan);
+ *          ...
+ *          StopMusicStream(music);
+ *          PlayMusicStream(music);
+ *          ...
+ *          PauseMusicStream(music)
+ *          ResumeMusicStream(music);
+ *          ...
+ *          // normalized value !
+ *          timePlayed = GetMusicTimePlayed(music)/GetMusicTimeLength(music);
+ *          if (timePlayed > 1.0f) timePlayed = 1.0f;*
+ *          ...
+ *          PlaySound(fxWav);
+ *          PlayMusicStream(music);
+ *          ...
+ *          UnloadSound(fxWav);
+ *          UnloadMusicStream(music);
+ *
+ *      [ ] bool playMusic(std::string fileName, float gain = 1.0f);
+ *      [ ] bool stopMusic(std::string fileName  );
+ *      [ ] Music* getMusic(std::string fileName )
+ *      [ ] bool playSound(std::string fileName, float gain = 1.0f);
  *      [ ] bool stopSound(std::string fileName  );
- *      [ ] bool renderTexture(std::string fileName , const SDL_FRect *srcrect, const SDL_FRect *dstrect);
- *      [ ] SDL_Texture* getTexture(std::string fileName, bool noAutoLoad = false);
+ *      [ ] Sound* getSound(std::string fileName )
+ *      [X] research how textures are handled
+ *          Image image = LoadImage("resources/raylib_logo.png");
+ *          Texture2D texture = LoadTextureFromImage(image);
+ *           UnloadImage(image);
+ *           ...
+ *           DrawTexture(texture, screenWidth/2 - texture.width/2, screenHeight/2 - texture.height/2, WHITE);
+ *           ...
+ *            UnloadTexture(texture);
+ *      [ ] bool renderTexture(std::string fileName , Rectangle srcrect, Rectangle dstrect, .....);
+ *          ==> void DrawTexturePro(Texture2D texture, Rectangle source, Rectangle dest, Vector2 origin, float rotation, Color tint)
+ *
+ *      [ ] Texture2D* getTexture(std::string fileName, bool noAutoLoad = false);
  *
  *
  *
