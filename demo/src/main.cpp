@@ -20,17 +20,21 @@ using namespace RayFlux::Tools;
 int main(void)
 {
     RayFlux::Main app;
-    app.getSettings().WindowMaximized = true;
+    app.getSettings()->WindowMaximized = true;
+    app.getSettings()->IconFilename = "texture:/raylib_32x32.png";
     // app.settings.FullScreen = true;
 
     if (!app.Init()) {
         TraceLog(LOG_ERROR, "%s", "Failed to Initialize!");
         return 1;
     }
-    Image imgLogo = LoadImage("assets/texture/raylib_32x32.png");
-    SetWindowIcon(imgLogo);
-    //TEST can i unload ?  - seams so
-    UnloadImage(imgLogo);
+
+    // ---- Music
+    //FIXME UpdateMusicStream must be called !!
+    Music* mainMusic = app.getResourceManager()->getMusic("fullhouse2026.fms.mp3");
+    if (mainMusic) PlayMusicStream(*mainMusic);
+
+
 
 
     //-------
@@ -80,11 +84,13 @@ int main(void)
 
     //-------
     std::string confPathText = TextFormat("Base Path: %s", getBasePath().c_str());
-    std::string prefPathText = TextFormat("Config Path: %s", app.getSettings().getPrefsPath().c_str());
+    std::string prefPathText = TextFormat("Config Path: %s", app.getSettings()->getPrefsPath().c_str());
     RayFlux::LazyGui lg {10, 10, 20};
 
     //------
     app.OnUpdate = [&](float dt) {
+         UpdateMusicStream(*mainMusic); //FIXME ...
+
         UpdateCamera(&camera, CAMERA_ORBITAL);
 
         // Update the shader with the camera view vector (points towards { 0.0f, 0.0f, 0.0f })
@@ -192,6 +198,7 @@ int main(void)
             TraceLog(LOG_INFO, "New TestDummy value: %d", testDummy);
         }
 
+        lg.Write(mainMusic ? "Music loaded" : "Music failed!" );
     };
     //--------
     app.OnShutDown = [&]() {

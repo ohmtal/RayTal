@@ -26,6 +26,8 @@ set(RAYFLUX_SRC
   ${RAYFLUX_DIR}/RayFlux/Settings.cpp
   ${RAYFLUX_DIR}/RayFlux/Gui.h
   ${RAYFLUX_DIR}/RayFlux/Gui.cpp
+  ${RAYFLUX_DIR}/RayFlux/ResourceManager.h
+  ${RAYFLUX_DIR}/RayFlux/ResourceManager.cpp
 )
 
 # ------------- RayLib

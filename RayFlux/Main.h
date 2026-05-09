@@ -85,6 +85,8 @@
 
 #include "TypeDef.h"
 #include "Settings.h"
+#include "ResourceManager.h"
+
 
 #include <functional>
 
@@ -97,8 +99,11 @@ namespace RayFlux {
     // ---------------- Main Class
     class Main  {
         Settings mSettings;
+        std::unique_ptr<ResourceManager> mResourceManager;
     public:
-        Settings& getSettings() { return mSettings; }
+        Settings* getSettings() { return &mSettings; }
+        ResourceManager* getResourceManager() { return mResourceManager.get(); }
+
         std::function<void()> OnRender = nullptr;
         std::function<void(const float)> OnUpdate = nullptr;
         // std::function<void(const SDL_Event)> OnEvent = nullptr;
@@ -106,6 +111,16 @@ namespace RayFlux {
 
         bool Init();
         void Execute();
+        void ShutDown();
+
+        /**
+         * setFullPath
+         * replace a path with full path
+         * %base => SDL_GetBasePath
+         * %pref => Settings::getPrefsPath
+         */
+        void setFullPath(std::string& path){ getSettings()->setFullPath(path); }
+
     }; //class
 
 } ; //namespace

@@ -1,4 +1,5 @@
 #include "Main.h"
+#include "ResourceManager.h"
 
 namespace RayFlux {
     //----------------------------------------------------------------------
@@ -21,7 +22,24 @@ namespace RayFlux {
         InitWindow(mSettings.ScreenWidth, mSettings.ScreenHeight, mSettings.Caption.c_str());
         if (!IsWindowReady()) return false;
 
+        setFullPath( getSettings()->IconFilename );
+
+        Image imgLogo = LoadImage( getSettings()->IconFilename.c_str() );
+        SetWindowIcon(imgLogo);
+        // can i unload ?  - seams so
+        UnloadImage(imgLogo);
+
+        mResourceManager = std::make_unique<ResourceManager>(this);
+
+        if (!getSettings()->DisableSound) {
+            InitAudioDevice();
+        }
+
         return true;
+    }
+    //----------------------------------------------------------------------
+    void Main::ShutDown() {
+        mResourceManager->shutDown();
     }
     //----------------------------------------------------------------------
     void Main::Execute() {
@@ -36,8 +54,10 @@ namespace RayFlux {
             EndDrawing();
         }
         if (OnShutDown) OnShutDown();
+        ShutDown();
         CloseWindow();
     }
+    //----------------------------------------------------------------------
 
 }
 

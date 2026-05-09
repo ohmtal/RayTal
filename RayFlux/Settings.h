@@ -19,26 +19,24 @@ namespace RayFlux {
         bool EnableVSync      = true;
         bool EnableFSAA       = true;
 
+        bool DisableSound     = false;
+
         std::string Company = "RayLib Test Company";
         std::string Caption = "RayLib Caption";
         std::string Version = "RayLib Test 0.260505";
 
-        //FIXME
-        //     // your window icon (have to be .bmp or .png)
-        //     std::string IconFilename = "";
-        //
-        //     //pre path for IconFilename and loadTexture
-        //     // base:/ is replaced with your BasePath
-        //     // NOTE: add a tralling slash!
-        //
-        //     std::string AssetPath = "base:/assets/";
-        //     std::string SoundPathAppend   = "";
-        //     std::string TexturePathAppend = "";
-        //
-        //     //imgui
-        //     bool EnableDockSpace = true;
-        //     // pref:/ is replaced with your pref Path
-        //     std::string IniFileName = "pref:/appgui.ini";
+        // your window icon (have to be RGBA8 )
+        std::string IconFilename = "";
+
+        //pre path for IconFilename and loadTexture
+        // base:/ is replaced with your BasePath
+        // NOTE: add a tralling slash!
+
+        std::string AssetPath = "base:/assets/";
+        std::string SoundPathAppend   = "sound/";
+        std::string MusicPathAppend   = "music/";
+        std::string TexturePathAppend = "texture/";
+
 
         // overwrite Window FLAGS:
         int windowFlagsOverwrite = 0;
@@ -65,7 +63,32 @@ namespace RayFlux {
             FpsLimit = Limit;
         }
         //--------------------------------------------------------------------------
+        /**
+         * replace a path with full path
+         * %base => SDL_GetBasePath
+         * %pref => Settings::getPrefsPath
+         */
+        void setFullPath(std::string& path){
+            if (path.find("assets:/", 0) != std::string::npos) {
+                path = Tools::string_replace_all(path, "assets:/", AssetPath);
+            }
+            if (path.find("sound:/", 0) != std::string::npos) {
+                path = Tools::string_replace_all(path, "sound:/", AssetPath + SoundPathAppend);
+            }
+            if (path.find("music:/", 0) != std::string::npos) {
+                path = Tools::string_replace_all(path, "music:/", AssetPath + MusicPathAppend);
+            }
+            if (path.find("texture:/", 0) != std::string::npos) {
+                path = Tools::string_replace_all(path, "texture:/", AssetPath + TexturePathAppend);
+            }
+            if (path.find("base:/", 0) != std::string::npos) {
+                path = Tools::string_replace_all(path, "base:/", Tools::getBasePath());
+            }
+            if (path.find("pref:/", 0) != std::string::npos) {
+                path = Tools::string_replace_all(path, "pref:/", getPrefsPath());
+            }
+        }
 
-    };
+    }; //Settings
 
 } //namespace
