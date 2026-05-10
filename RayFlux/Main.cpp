@@ -2,7 +2,7 @@
 #include "ResourceManager.h"
 
 namespace RayFlux {
-    //----------------------------------------------------------------------
+    //--------------------------------------------------------------------------
 
     bool Main::Init() {
         int windowFlags = 0;
@@ -35,18 +35,22 @@ namespace RayFlux {
             InitAudioDevice();
         }
 
+        if (OnInit) {
+            if (!OnInit())
+                return false;
+        }
+
         return true;
     }
-    //----------------------------------------------------------------------
+    //--------------------------------------------------------------------------
     void Main::ShutDown() {
         mResourceManager->shutDown();
     }
-    //----------------------------------------------------------------------
+    //--------------------------------------------------------------------------
     void Main::Execute() {
-        F32 deltaTime = 0.1666f;
+
         const F32 fixedStep = 1.0f / 60.0f;
         static F32 accumulator = 0.0f;
-
 
         while (!WindowShouldClose())
         {
@@ -70,7 +74,20 @@ namespace RayFlux {
         ShutDown();
         CloseWindow();
     }
-    //----------------------------------------------------------------------
-
-}
+    //--------------------------------------------------------------------------
+    bool Main::playMusic(const char* musicFileName, F32 volume){
+        Music* music = getResourceManager()->getMusic(musicFileName);
+        if (!music) return false;
+        SetMusicVolume(*music, volume);
+        PlayMusicStream(*music);
+        return true;
+    }
+    //--------------------------------------------------------------------------
+    bool Main::playSound(const char* soundFileName){
+        Sound* sound = getResourceManager()->getSound(soundFileName);
+        if (!sound) return false;
+        PlaySound(*sound);
+        return true;
+    }
+} // namespace
 

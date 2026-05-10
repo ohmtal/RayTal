@@ -104,6 +104,7 @@ namespace RayFlux {
         Settings* getSettings() { return &mSettings; }
         ResourceManager* getResourceManager() { return mResourceManager.get(); }
 
+        std::function<bool()> OnInit = nullptr;
         std::function<void()> OnRender = nullptr;
         std::function<void(const F32)> OnUpdate = nullptr;
         // std::function<void(const SDL_Event)> OnEvent = nullptr;
@@ -120,6 +121,12 @@ namespace RayFlux {
          * %pref => Settings::getPrefsPath
          */
         void setFullPath(std::string& path){ getSettings()->setFullPath(path); }
+
+        bool playMusic(const char * musicFileName, F32 volume = 1.f);
+        bool playSound( const char* soundFileName );
+        Music* getMusic(const char * musicFileName) { return getResourceManager()->getMusic(musicFileName);}
+        Sound* getSound(const char* soundFileName) { return getResourceManager()->getSound(soundFileName); }
+        Texture* getTexture(const char* fileName) { return getResourceManager()->getTexture(fileName); }
 
     }; //class
 

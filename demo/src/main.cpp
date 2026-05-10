@@ -11,33 +11,17 @@
 using namespace RayFlux::Tools;
 
 #if defined(PLATFORM_DESKTOP)
-#define GLSL_VERSION            330
+#define GLSL_VERSION            100 //330
 #else   // PLATFORM_ANDROID, PLATFORM_WEB
 #define GLSL_VERSION            100
 #endif
 
 //------------------------------------------------------------------------------
-RayFlux::Main app;
-
-bool playMusic(const char * musicFileName, F32 volume = 1.f) {
-    Music* music = app.getResourceManager()->getMusic(musicFileName);
-    if (!music) return false;
-    SetMusicVolume(*music, volume);
-    PlayMusicStream(*music);
-    return true;
-}
-
-bool playSound( const char* soundFileName ) {
-    Sound* sound = app.getResourceManager()->getSound(soundFileName);
-    if (!sound) return false;
-    PlaySound(*sound);
-    return true;
-}
 
 
 int main(void)
 {
-
+    RayFlux::Main app;
     app.getSettings()->WindowMaximized = true;
     app.getSettings()->IconFilename = "texture:/raylib_32x32.png";
     // app.settings.FullScreen = true;
@@ -48,7 +32,7 @@ int main(void)
     }
 
     // Music
-    playMusic("fullhouse2026.fms.mp3", 0.75f);
+    app.playMusic("fullhouse2026.fms.mp3", 0.75f);
 
     // Texture
     Texture2D *logoTex = app.getResourceManager()->getTexture("raylib_32x32.png");
@@ -190,12 +174,11 @@ int main(void)
         DrawCircleV(irisRightPosition, irisRadius, DARKGREEN);
         DrawCircleV(irisRightPosition, 10, BLACK);
 
+        lg.y = 10;
 
         // logo
-        if (logoTex) DrawTexture(*logoTex, lg.x, 10.f, WHITE);
-
-        // debug text
-        lg.y = 50;
+        if (logoTex) DrawTexture(*logoTex, lg.x, lg.x, WHITE);
+        lg.y += 40.f;
         lg.size = 40;
         lg.Write("RayLib Test .....", GOLD);
         lg.size = 20;
@@ -213,7 +196,7 @@ int main(void)
 
 
         if (lg.Button(100.f, "Test Sound" ) == 1) {
-            playSound("flee.mp3");
+            app.playSound("flee.mp3");
         }
     };
     //--------
