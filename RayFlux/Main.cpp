@@ -3,7 +3,6 @@
 
 namespace RayFlux {
     //--------------------------------------------------------------------------
-
     bool Main::Init() {
         int windowFlags = 0;
         if (mSettings.windowFlagsOverwrite) windowFlags = mSettings.windowFlagsOverwrite;
@@ -40,11 +39,34 @@ namespace RayFlux {
                 return false;
         }
 
+
         return true;
     }
     //--------------------------------------------------------------------------
     void Main::ShutDown() {
+        for (auto& obj: mCoreObjects) {
+            obj->ShutDown();
+        }
         mResourceManager->shutDown();
+    }
+    //--------------------------------------------------------------------------
+    void Main::Update(F32 dt) {
+        if (OnUpdate) OnUpdate(dt);
+        mResourceManager->Update();
+
+        for (auto& obj: mCoreObjects) {
+            obj->Update(dt);
+        }
+    }
+    //--------------------------------------------------------------------------
+    void Main::Render() {
+        BeginDrawing();
+        ClearBackground(COLOR_SLATEGRAY);
+        if (OnRender) OnRender();
+        for (auto& obj: mCoreObjects) {
+            obj->Render();
+        }
+        EndDrawing();
     }
     //--------------------------------------------------------------------------
     void Main::Execute() {
@@ -58,17 +80,12 @@ namespace RayFlux {
             accumulator += GetFrameTime();
             while (accumulator >= fixedStep) {
 
-                if (OnUpdate) OnUpdate(fixedStep);
-                mResourceManager->Update();
-
+                this->Update(fixedStep);
                 accumulator -= fixedStep;
             }
 
+            this->Render();
 
-            BeginDrawing();
-            ClearBackground(COLOR_SLATEGRAY);
-            if (OnRender) OnRender();
-            EndDrawing();
         }
         if (OnShutDown) OnShutDown();
         ShutDown();

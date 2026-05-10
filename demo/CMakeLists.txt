@@ -4,7 +4,8 @@ cmake_minimum_required(VERSION 3.24)
 
 project(RayFluxDemo)
 set(PROJECT_SRC
-    src/main.cpp
+    # src/main_class.cpp
+    src/main_callbacks.cpp
 )
 
 
@@ -17,6 +18,7 @@ include(FetchContent)
 set(RAYFLUX_DIR "${CMAKE_CURRENT_LIST_DIR}/../" CACHE PATH "Path to RayFlux")
 # later as lib .... add_subdirectory()
 set(RAYFLUX_SRC
+  ${RAYFLUX_DIR}/RayFlux/Core.h
   ${RAYFLUX_DIR}/RayFlux/Settings.h
   ${RAYFLUX_DIR}/RayFlux/Main.h
   ${RAYFLUX_DIR}/RayFlux/Tools.cpp
@@ -62,7 +64,6 @@ target_include_directories(${PROJECT_NAME} PRIVATE
 )
 
 
-
 target_compile_definitions(${PROJECT_NAME} PUBLIC IMGUI_DEFINE_MATH_OPERATORS)
 
 
@@ -71,12 +72,6 @@ set_target_properties(${PROJECT_NAME} PROPERTIES
     RUNTIME_OUTPUT_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}"
 )
 
-
-# target_compile_definitions(${PROJECT_NAME} PUBLIC FLUX_ENGINE) # fake entry for DSP
-# target_compile_definitions(${PROJECT_NAME} PUBLIC FLUX_ENGINE_FAKE)
-
-
 target_link_libraries(${PROJECT_NAME} PRIVATE
-    # BaseFlux
     raylib
 )

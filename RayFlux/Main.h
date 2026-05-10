@@ -2,6 +2,19 @@
 // RayFlux Main
 //------------------------------------------------------------------------------
 /*
+ *  I have implemented different ways to use it.
+ *  1.) Using the Event Functions
+ *  2.) Override the Main Class (caution with Render Wrapper!)
+ *  *.) Combine Both
+ *  ----
+ *  Core Objects:
+ *  1.)  Adding Objects based on Core with overide Render/Update/ShutDown
+ *  2.)  Using Core Objects because of the interface or call the methods
+ *       manually.
+ */
+
+// ---------- TODO ---------------
+/*
  * [X] OnRender
  * [X] OnShutDown
  * [X] OnUpdate
@@ -83,6 +96,7 @@
 #include "raylib.h"
 #include "raymath.h"
 
+#include "Core.h"
 #include "TypeDef.h"
 #include "Settings.h"
 #include "ResourceManager.h"
@@ -97,10 +111,14 @@ namespace RayFlux {
 
 
     // ---------------- Main Class
-    class Main  {
+    class Main :public Core {
+    protected:
         Settings mSettings;
         std::unique_ptr<ResourceManager> mResourceManager;
+
     public:
+        std::vector<std::unique_ptr<Core>> mCoreObjects;
+
         Settings* getSettings() { return &mSettings; }
         ResourceManager* getResourceManager() { return mResourceManager.get(); }
 
@@ -110,9 +128,12 @@ namespace RayFlux {
         // std::function<void(const SDL_Event)> OnEvent = nullptr;
         std::function<void()> OnShutDown = nullptr;
 
-        bool Init();
+        bool Init() override;
+        void Update(F32 dt) override;
+        void Render() override;
+        void ShutDown() override;
+
         void Execute();
-        void ShutDown();
 
         /**
          * setFullPath
