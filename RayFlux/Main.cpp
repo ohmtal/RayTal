@@ -43,10 +43,23 @@ namespace RayFlux {
     }
     //----------------------------------------------------------------------
     void Main::Execute() {
+        float deltaTime = 0.1666f;
+        const float fixedStep = 1.0f / 60.0f;
+        static float accumulator = 0.0f;
+
+
         while (!WindowShouldClose())
         {
-            // fixme fixed update / deltaTime
-            if (OnUpdate) OnUpdate(0.166);
+
+            accumulator += GetFrameTime();
+            while (accumulator >= fixedStep) {
+
+                if (OnUpdate) OnUpdate(fixedStep);
+                mResourceManager->Update();
+
+                accumulator -= fixedStep;
+            }
+
 
             BeginDrawing();
             ClearBackground(COLOR_SLATEGRAY);

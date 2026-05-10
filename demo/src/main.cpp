@@ -89,7 +89,6 @@ int main(void)
 
     //------
     app.OnUpdate = [&](float dt) {
-         UpdateMusicStream(*mainMusic); //FIXME ...
 
         UpdateCamera(&camera, CAMERA_ORBITAL);
 
@@ -181,7 +180,7 @@ int main(void)
         lg.size = 40;
         lg.Write("RayLib Test .....", GOLD);
         lg.size = 20;
-        lg.Write(TextFormat("FPS: %d", GetFPS()), RED);
+        lg.Write(TextFormat("FPS: %d, FrameTime: %f", GetFPS(),GetFrameTime()),  RED);
         lg.size = 10;
         lg.Write(confPathText.c_str(), ORANGE);
         lg.Write(prefPathText.c_str(), SKYBLUE);
@@ -199,6 +198,7 @@ int main(void)
         }
 
         lg.Write(mainMusic ? "Music loaded" : "Music failed!" );
+
     };
     //--------
     app.OnShutDown = [&]() {

@@ -62,6 +62,14 @@ namespace RayFlux {
             }
         }
         //-------------------------------------------------
+        void Update() {
+
+            for (auto& [key, music] : mMusicMap) {
+                 UpdateMusicStream( music );
+            }
+
+        }
+        //-------------------------------------------------
         Music* getMusic(const std::string fileName , bool noAutoLoad = false );
         Sound* getSound(const std::string fileName, bool noAutoLoad = false );
         Texture2D* getTexture(const std::string fileName, bool noAutoLoad = false);
