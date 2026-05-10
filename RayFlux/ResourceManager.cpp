@@ -27,6 +27,7 @@ namespace RayFlux {
         }
         mMusicMap[fileName] = music;
 
+
         return &mMusicMap[fileName];
     }
     // -------------------------------------------------------------------------
@@ -43,8 +44,14 @@ namespace RayFlux {
         std::string lFileName =  "sound:/" + fileName;
         mMain->setFullPath(lFileName);
 
-
-        //FIXME
+        Sound sound = LoadSound(lFileName.c_str());
+        if (!IsSoundValid(sound)) {
+            blacklist(fileName);
+            UnloadSound(sound);
+            return nullptr;
+        }
+        mSoundMap[fileName] = sound;
+        return &mSoundMap[fileName];
     }
     // -------------------------------------------------------------------------
     Texture2D* ResourceManager::getTexture(const std::__1::string fileName, bool noAutoLoad) {
@@ -59,8 +66,12 @@ namespace RayFlux {
 
         std::string lFileName =  "texture:/" + fileName;
         mMain->setFullPath(lFileName);
-
-        //FIXME
+        Image image = LoadImage(lFileName.c_str());
+        Texture2D texture = LoadTextureFromImage(image);
+        UnloadImage(image);
+        mTextureMap[fileName] = texture;
+        return &mTextureMap[fileName];
     }
+    // -------------------------------------------------------------------------
 
 }

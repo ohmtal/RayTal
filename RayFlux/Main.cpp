@@ -43,9 +43,9 @@ namespace RayFlux {
     }
     //----------------------------------------------------------------------
     void Main::Execute() {
-        float deltaTime = 0.1666f;
-        const float fixedStep = 1.0f / 60.0f;
-        static float accumulator = 0.0f;
+        F32 deltaTime = 0.1666f;
+        const F32 fixedStep = 1.0f / 60.0f;
+        static F32 accumulator = 0.0f;
 
 
         while (!WindowShouldClose())

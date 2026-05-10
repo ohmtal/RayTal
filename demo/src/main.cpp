@@ -17,9 +17,27 @@ using namespace RayFlux::Tools;
 #endif
 
 //------------------------------------------------------------------------------
+RayFlux::Main app;
+
+bool playMusic(const char * musicFileName, F32 volume = 1.f) {
+    Music* music = app.getResourceManager()->getMusic(musicFileName);
+    if (!music) return false;
+    SetMusicVolume(*music, volume);
+    PlayMusicStream(*music);
+    return true;
+}
+
+bool playSound( const char* soundFileName ) {
+    Sound* sound = app.getResourceManager()->getSound(soundFileName);
+    if (!sound) return false;
+    PlaySound(*sound);
+    return true;
+}
+
+
 int main(void)
 {
-    RayFlux::Main app;
+
     app.getSettings()->WindowMaximized = true;
     app.getSettings()->IconFilename = "texture:/raylib_32x32.png";
     // app.settings.FullScreen = true;
@@ -29,13 +47,11 @@ int main(void)
         return 1;
     }
 
-    // ---- Music
-    //FIXME UpdateMusicStream must be called !!
-    Music* mainMusic = app.getResourceManager()->getMusic("fullhouse2026.fms.mp3");
-    if (mainMusic) PlayMusicStream(*mainMusic);
+    // Music
+    playMusic("fullhouse2026.fms.mp3", 0.75f);
 
-
-
+    // Texture
+    Texture2D *logoTex = app.getResourceManager()->getTexture("raylib_32x32.png");
 
     //-------
     // add basic lighting demo .....
@@ -58,7 +74,7 @@ int main(void)
 
     // Ambient light level (some basic lighting)
     int ambientLoc = GetShaderLocation(shader, "ambient");
-    SetShaderValue(shader, ambientLoc, (float[4]){ 0.1f, 0.1f, 0.1f, 1.0f }, SHADER_UNIFORM_VEC4);
+    SetShaderValue(shader, ambientLoc, (F32[4]){ 0.1f, 0.1f, 0.1f, 1.0f }, SHADER_UNIFORM_VEC4);
 
     // Create lights
     Light lights[MAX_LIGHTS] = { {0} };
@@ -73,14 +89,14 @@ int main(void)
 
     Vector2 scleraLeftPosition = { GetScreenWidth() - 200.0f, GetScreenHeight() - 100.f };
     Vector2 scleraRightPosition = { GetScreenWidth() - 60.0f, GetScreenHeight() - 100.f };
-    float scleraRadius = 60;
+    F32 scleraRadius = 60;
 
     Vector2 irisLeftPosition = scleraLeftPosition;
     Vector2 irisRightPosition = scleraRightPosition;
-    float irisRadius = 24;
+    F32 irisRadius = 24;
 
-    float angle = 0.0f;
-    float dx = 0.0f, dy = 0.0f, dxx = 0.0f, dyy = 0.0f;
+    F32 angle = 0.0f;
+    F32 dx = 0.0f, dy = 0.0f, dxx = 0.0f, dyy = 0.0f;
 
     //-------
     std::string confPathText = TextFormat("Base Path: %s", getBasePath().c_str());
@@ -88,12 +104,12 @@ int main(void)
     RayFlux::LazyGui lg {10, 10, 20};
 
     //------
-    app.OnUpdate = [&](float dt) {
+    app.OnUpdate = [&](F32 dt) {
 
         UpdateCamera(&camera, CAMERA_ORBITAL);
 
         // Update the shader with the camera view vector (points towards { 0.0f, 0.0f, 0.0f })
-        float cameraPos[3] = { camera.position.x, camera.position.y, camera.position.z };
+        F32 cameraPos[3] = { camera.position.x, camera.position.y, camera.position.z };
         SetShaderValue(shader, shader.locs[SHADER_LOC_VECTOR_VIEW], cameraPos, SHADER_UNIFORM_VEC3);
 
         // Check key inputs to enable/disable lights
@@ -175,15 +191,19 @@ int main(void)
         DrawCircleV(irisRightPosition, 10, BLACK);
 
 
+        // logo
+        if (logoTex) DrawTexture(*logoTex, lg.x, 10.f, WHITE);
+
         // debug text
         lg.y = 50;
         lg.size = 40;
         lg.Write("RayLib Test .....", GOLD);
         lg.size = 20;
-        lg.Write(TextFormat("FPS: %d, FrameTime: %f", GetFPS(),GetFrameTime()),  RED);
+        lg.Write(TextFormat("FPS: %d", GetFPS()),  RED);
         lg.size = 10;
         lg.Write(confPathText.c_str(), ORANGE);
         lg.Write(prefPathText.c_str(), SKYBLUE);
+        lg.Write(logoTex ? "Logo loaded" : "Logo failed!");
         lg.size = 20;
         lg.Write("LIGHTS:", WHITE);
         lg.CheckBox( "Red", &lights[1].enabled);
@@ -191,14 +211,10 @@ int main(void)
         lg.CheckBox( "Blue", &lights[3].enabled);
         lg.CheckBox( "Yellow", &lights[0].enabled);
 
-        // only a ComboBox test!
-        static int testDummy = 0;
-        if (lg.ComboBox( 100.f, "Foo;Bar", &testDummy ) == 1) {
-            TraceLog(LOG_INFO, "New TestDummy value: %d", testDummy);
+
+        if (lg.Button(100.f, "Test Sound" ) == 1) {
+            playSound("flee.mp3");
         }
-
-        lg.Write(mainMusic ? "Music loaded" : "Music failed!" );
-
     };
     //--------
     app.OnShutDown = [&]() {

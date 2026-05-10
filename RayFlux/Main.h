@@ -55,10 +55,10 @@
  *          UnloadSound(fxWav);
  *          UnloadMusicStream(music);
  *
- *      [ ] bool playMusic(std::string fileName, float gain = 1.0f);
+ *      [ ] bool playMusic(std::string fileName, F32 gain = 1.0f);
  *      [ ] bool stopMusic(std::string fileName  );
  *      [ ] Music* getMusic(std::string fileName )
- *      [ ] bool playSound(std::string fileName, float gain = 1.0f);
+ *      [ ] bool playSound(std::string fileName, F32 gain = 1.0f);
  *      [ ] bool stopSound(std::string fileName  );
  *      [ ] Sound* getSound(std::string fileName )
  *      [X] research how textures are handled
@@ -70,7 +70,7 @@
  *           ...
  *            UnloadTexture(texture);
  *      [ ] bool renderTexture(std::string fileName , Rectangle srcrect, Rectangle dstrect, .....);
- *          ==> void DrawTexturePro(Texture2D texture, Rectangle source, Rectangle dest, Vector2 origin, float rotation, Color tint)
+ *          ==> void DrawTexturePro(Texture2D texture, Rectangle source, Rectangle dest, Vector2 origin, F32 rotation, Color tint)
  *
  *      [ ] Texture2D* getTexture(std::string fileName, bool noAutoLoad = false);
  *
@@ -105,7 +105,7 @@ namespace RayFlux {
         ResourceManager* getResourceManager() { return mResourceManager.get(); }
 
         std::function<void()> OnRender = nullptr;
-        std::function<void(const float)> OnUpdate = nullptr;
+        std::function<void(const F32)> OnUpdate = nullptr;
         // std::function<void(const SDL_Event)> OnEvent = nullptr;
         std::function<void()> OnShutDown = nullptr;
 

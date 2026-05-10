@@ -19,12 +19,18 @@ namespace RayFlux {
         }
 
         int CheckBox( const char *text, bool *checked) {
-            int result = GuiCheckBox(Rectangle((float) x,(float)y, (float)size, (float)size), text, checked);
+            int result = GuiCheckBox(Rectangle((F32) x,(F32)y, (F32)size, (F32)size), text, checked);
             y += size + spacing;
             return result;
         }
-        int ComboBox( float width, const char *text, int *active) {
-            int result = GuiComboBox(Rectangle((float) x,(float)y, width, (float)size), text, active);
+        int ComboBox( F32 width, const char *text, int *active) {
+            int result = GuiComboBox(Rectangle((F32) x,(F32)y, width, (F32)size), text, active);
+            y += size + spacing;
+            return result;
+        }
+
+        int Button( F32 width, const char *text) {
+            int result = GuiButton(Rectangle((F32) x,(F32)y, width, (F32)size), text);
             y += size + spacing;
             return result;
         }
