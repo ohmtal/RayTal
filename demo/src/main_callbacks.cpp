@@ -13,6 +13,8 @@ int main(void)
 {
     RayFlux::Main app;
     app.getSettings()->WindowMaximized = true;
+    app.getSettings()->EnableVSync = false;
+    app.getSettings()->setFPSLimit(500);
     app.getSettings()->IconFilename = "texture:/raylib_32x32.png";
     // app.settings.FullScreen = true;
 
@@ -36,7 +38,7 @@ int main(void)
     //-------
     std::string confPathText = TextFormat("Base Path: %s", getBasePath().c_str());
     std::string prefPathText = TextFormat("Config Path: %s", app.getSettings()->getPrefsPath().c_str());
-    RayFlux::LazyGui lg {10, 10, 20};
+    RayFlux::LazyGui lg {10.f, 10.f};
 
     //------
     app.OnUpdate = [&](F32 dt) {
@@ -61,11 +63,14 @@ int main(void)
         lg.Write(confPathText.c_str(), ORANGE);
         lg.Write(prefPathText.c_str(), SKYBLUE);
         lg.Write(logoTex ? "Logo loaded" : "Logo failed!");
+
+        lg.size = 16;
+
         lg.size = 20;
-        lg.Write("LIGHTS:", WHITE);
+        lg.CheckBox("Enabled", &Lights.isEnabled);
         Lights.RenderGui(lg);
 
-
+        lg.Separator(100.f);
         if (lg.Button(100.f, "Test Sound" ) == 1) {
             app.playSound("flee.mp3");
         }

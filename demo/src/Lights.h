@@ -21,6 +21,7 @@ namespace RayFlux::Demo {
         Light mLights[MAX_LIGHTS] = { {0} };
 
     public:
+        bool isEnabled = false;
         //----------------------------------------------------------------------
         bool Init() override {
             //-------
@@ -55,7 +56,7 @@ namespace RayFlux::Demo {
 
             mLights[0].color=ORANGE;
 
-
+            isEnabled = true;
             return true;
         }
         //----------------------------------------------------------------------
@@ -67,6 +68,7 @@ namespace RayFlux::Demo {
 
         //----------------------------------------------------------------------
         void Update(F32 dt) override {
+            if (!isEnabled) return;
             UpdateCamera(&mCamera, CAMERA_ORBITAL);
 
             // Update the shader with the mCamera view vector (points towards { 0.0f, 0.0f, 0.0f })
@@ -86,6 +88,7 @@ namespace RayFlux::Demo {
         }
         //----------------------------------------------------------------------
         void Render3D()  {
+            if (!isEnabled) return;
             BeginMode3D(mCamera);
             BeginShaderMode(mShader);
             DrawPlane(Vector3Zero(), (Vector2) { 10.0, 10.0 }, WHITE);
@@ -103,6 +106,10 @@ namespace RayFlux::Demo {
 
 
         void RenderGui(LazyGui& gui) {
+            if (!isEnabled) return;
+            gui.size = 20.f;
+            gui.Separator(100.f);
+            gui.Write("LIGHTS:", WHITE);
             gui.CheckBox( "Red", &mLights[1].enabled);
             gui.CheckBox( "Green", &mLights[2].enabled);
             gui.CheckBox( "Blue", &mLights[3].enabled);
