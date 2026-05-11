@@ -7,8 +7,8 @@ namespace RayFlux {
     // -------------------------------------------------------------------------
     // MUSIC need to be called: UpdateMusicStream
 
-    Music* ResourceManager::getMusic(const std::__1::string fileName, bool noAutoLoad) {
-        if (isBlackListed(fileName)) return nullptr;
+    Music* ResourceManager::getMusic(const std::string fileName, bool noAutoLoad) {
+        if (!mInitialized || isBlackListed(fileName)) return nullptr;
 
         auto it = mMusicMap.find(fileName);
         if (it != mMusicMap.end()) {
@@ -31,8 +31,8 @@ namespace RayFlux {
         return &mMusicMap[fileName];
     }
     // -------------------------------------------------------------------------
-    Sound* ResourceManager::getSound(const std::__1::string fileName, bool noAutoLoad) {
-        if (isBlackListed(fileName)) return nullptr;
+    Sound* ResourceManager::getSound(const std::string fileName, bool noAutoLoad) {
+        if (!mInitialized || isBlackListed(fileName)) return nullptr;
 
 
         auto it = mSoundMap.find(fileName);
@@ -54,8 +54,8 @@ namespace RayFlux {
         return &mSoundMap[fileName];
     }
     // -------------------------------------------------------------------------
-    Texture2D* ResourceManager::getTexture(const std::__1::string fileName, bool noAutoLoad) {
-        if (isBlackListed(fileName)) return nullptr;
+    Texture2D* ResourceManager::getTexture(const std::string fileName, bool noAutoLoad) {
+        if (!mInitialized || isBlackListed(fileName)) return nullptr;
 
         auto it = mTextureMap.find(fileName);
         if (it != mTextureMap.end()) {
@@ -81,6 +81,7 @@ namespace RayFlux {
     // -------------------------------------------------------------------------
     void ResourceManager::shutDown() {
         if (mShutDown) return;
+        mInitialized = false;
         mShutDown = true;
 
         for (auto& [key, val] : mSoundMap) {
@@ -96,12 +97,12 @@ namespace RayFlux {
         }
     }
     // -------------------------------------------------------------------------
-    void ResourceManager::blacklist(const std::__1::string fileName){
+    void ResourceManager::blacklist(const std::string fileName){
         if (!isBlackListed(fileName))
             mBlacklist.push_back(fileName);
     }
     // -------------------------------------------------------------------------
-    bool ResourceManager::isBlackListed(const std::__1::string fileName){
+    bool ResourceManager::isBlackListed(const std::string fileName){
         return std::find(mBlacklist.begin(), mBlacklist.end(), fileName) != mBlacklist.end();
     }
 }

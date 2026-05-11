@@ -120,32 +120,72 @@ namespace RayFlux {
         std::unique_ptr<ResourceManager> mResourceManager;
 
     public:
+        /**
+         * a list of Objects based on Core
+         * automated calls: Render, Update and ShutDown
+         * NOTE: untested!
+         */
         std::vector<std::unique_ptr<Core>> mCoreObjects;
 
         Settings* getSettings() { return &mSettings; }
         ResourceManager* getResourceManager() { return mResourceManager.get(); }
 
+        // ---------- Events ----------
+        /**
+         * Event OnInit - called after base init is done
+         */
         std::function<bool()> OnInit = nullptr;
+        /**
+         * Event OnRender - wrap begin/end drawing and clear
+         */
         std::function<void()> OnRender = nullptr;
+        /**
+         * Event OnUpdate - called at a fixed deltaTime
+         */
         std::function<void(const F32)> OnUpdate = nullptr;
-        // std::function<void(const SDL_Event)> OnEvent = nullptr;
+        /**
+         * Event OnShutDown - called on shutdown system before
+         *                    method ShutDown is called.
+         */
         std::function<void()> OnShutDown = nullptr;
 
+        // ---------- Methods ----------
+        /**
+         * Init - create window and apply settings
+         */
         bool Init() override;
+        /**
+         * update call at a fixed delta time (60fps)
+         */
         void Update(F32 dt) override;
+        /**
+         * render call
+         */
         void Render() override;
+        /**
+         * Shutdown - unload objects
+         */
         void ShutDown() override;
 
+        /**
+         * Main object loop
+         */
         void Execute();
 
+        // ---------- Tool Functions ----------
         /**
          * setFullPath
-         * replace a path with full path
-         * %base => SDL_GetBasePath
-         * %pref => Settings::getPrefsPath
+         * replace a path with full path (see also Settings and Tools)
          */
         void setFullPath(std::string& path){ getSettings()->setFullPath(path); }
 
+
+        // ---------- Resources ----------
+        /**
+         * using ResourceManager to get resources
+         * it's a bit slower than direct loading (map lookup)
+         * but more comfortable and garbage collection is automated.
+         */
         bool playMusic(const char * musicFileName, F32 volume = 1.f);
         bool playSound( const char* soundFileName );
         Music* getMusic(const char * musicFileName) { return getResourceManager()->getMusic(musicFileName);}
