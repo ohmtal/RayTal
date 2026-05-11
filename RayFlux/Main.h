@@ -5,6 +5,8 @@
 // RayFlux Main
 //------------------------------------------------------------------------------
 /*
+ *  Possible Hybrid usage:
+ *  ======================
  *  I have implemented different ways to use it.
  *  1.) Using the Event Functions
  *  2.) Override the Main Class (caution with Render Wrapper!)
@@ -181,13 +183,15 @@ namespace RayFlux {
 
 
         // ---------- Resources ----------
-        /**
-         * using ResourceManager to get resources
-         * it's a bit slower than direct loading (map lookup)
-         * but more comfortable and garbage collection is automated.
-         */
+        // NOTE: The resource Manager uses maps to identfy the Objects by short Filename
+        //       based on the Path Settings. The Objects unload it's content on ResourceManager
+        //       shutDown.
+
+        // wrapper to play Music or Sound
         bool playMusic(const char * musicFileName, F32 volume = 1.f);
         bool playSound( const char* soundFileName );
+
+        // wrapper for getting a Resource Object Pointer
         Music* getMusic(const char * musicFileName) { return getResourceManager()->getMusic(musicFileName);}
         Sound* getSound(const char* soundFileName) { return getResourceManager()->getSound(soundFileName); }
         Texture* getTexture(const char* fileName) { return getResourceManager()->getTexture(fileName); }

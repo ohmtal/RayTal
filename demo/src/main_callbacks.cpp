@@ -67,7 +67,7 @@ int main(void)
         lg.size = 16;
 
         lg.size = 20;
-        lg.CheckBox("Enabled", &Lights.isEnabled);
+        lg.CheckBox("Light Demo enabled", &Lights.isEnabled);
         Lights.RenderGui(lg);
 
         lg.Separator(100.f);
