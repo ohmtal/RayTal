@@ -34,8 +34,8 @@ namespace RayFlux::Demo {
             mCamera.projection = CAMERA_PERSPECTIVE;             // Camera projection type
 
             // Load basic lighting shader
-            mShader = LoadShader(TextFormat("assets/shaders/glsl%i/lighting.vs", GLSL_VERSION),
-                                 TextFormat("assets/shaders/glsl%i/lighting.fs", GLSL_VERSION));
+            mShader = LoadShader(TextFormat("%s/assets/shaders/glsl%i/lighting.vs", GetApplicationDirectory(),  GLSL_VERSION),
+                                 TextFormat("%s/assets/shaders/glsl%i/lighting.fs", GetApplicationDirectory(), GLSL_VERSION));
             // Get some required shader locations
             mShader.locs[SHADER_LOC_VECTOR_VIEW] = GetShaderLocation(mShader, "viewPos");
             // NOTE: "matModel" location name is automatically assigned on shader loading,
