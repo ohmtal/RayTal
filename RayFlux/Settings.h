@@ -1,3 +1,6 @@
+//-----------------------------------------------------------------------------
+// Copyright (c) 2026 Thomas Hühn (XXTH)
+// SPDX-License-Identifier: MIT
 //------------------------------------------------------------------------------
 // RayFlux Settings
 //------------------------------------------------------------------------------
@@ -5,6 +8,7 @@
 
 #include <string>
 #include "Tools.h"
+#include "TypeDef.h"
 
 namespace RayFlux {
     //--------------------------------------------------------------------------
@@ -41,53 +45,11 @@ namespace RayFlux {
         // overwrite Window FLAGS:
         int windowFlagsOverwrite = 0;
 
-        //--------------------------------------------------------------------------
-        std::string getPrefsPath(){
-            static std::string cachedPath = "";
-            if (!cachedPath.empty()) return cachedPath;
-            cachedPath = Tools::GetPrefPath(getSafeCompany().c_str(), getSafeCaption().c_str());
-
-            return cachedPath;
-        }
-        //--------------------------------------------------------------------------
-        std::string getSafeCompany(){
-            return Tools::sanitizeFilenameWithUnderScores(Company);
-        }
-        //--------------------------------------------------------------------------
-        std::string getSafeCaption(){
-            return Tools::sanitizeFilenameWithUnderScores(Caption);
-        }
-        //--------------------------------------------------------------------------
-        void setFPSLimit( int Limit) {
-            SetTargetFPS(Limit);
-            FpsLimit = Limit;
-        }
-        //--------------------------------------------------------------------------
-        /**
-         * replace a path with full path
-         * %base => SDL_GetBasePath
-         * %pref => Settings::getPrefsPath
-         */
-        void setFullPath(std::string& path){
-            if (path.find("assets:/", 0) != std::string::npos) {
-                path = Tools::string_replace_all(path, "assets:/", AssetPath);
-            }
-            if (path.find("sound:/", 0) != std::string::npos) {
-                path = Tools::string_replace_all(path, "sound:/", AssetPath + SoundPathAppend);
-            }
-            if (path.find("music:/", 0) != std::string::npos) {
-                path = Tools::string_replace_all(path, "music:/", AssetPath + MusicPathAppend);
-            }
-            if (path.find("texture:/", 0) != std::string::npos) {
-                path = Tools::string_replace_all(path, "texture:/", AssetPath + TexturePathAppend);
-            }
-            if (path.find("base:/", 0) != std::string::npos) {
-                path = Tools::string_replace_all(path, "base:/", Tools::getBasePath());
-            }
-            if (path.find("pref:/", 0) != std::string::npos) {
-                path = Tools::string_replace_all(path, "pref:/", getPrefsPath());
-            }
-        }
+        std::string getPrefsPath();
+        std::string getSafeCompany();
+        std::string getSafeCaption();
+        void setFPSLimit( int Limit);
+        void setFullPath(std::string& path);
 
     }; //Settings
 

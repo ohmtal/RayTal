@@ -35,41 +35,11 @@ namespace RayFlux {
         ~ResourceManager() {
             shutDown();
         }
-        //-------------------------------------------------
-        bool isBlackListed(std::string fileName) {
-            return std::find(mBlacklist.begin(), mBlacklist.end(), fileName) != mBlacklist.end();
-        }
+        bool isBlackListed(const std::string fileName);
+        void blacklist(const std::string fileName);
+        void shutDown();
+        void Update();
 
-        void blacklist(std::string fileName) {
-            if (!isBlackListed(fileName))
-                mBlacklist.push_back(fileName);
-        }
-        //-------------------------------------------------
-        void shutDown() {
-            if (mShutDown) return;
-            mShutDown = true;
-
-            for (auto& [key, val] : mSoundMap) {
-                UnloadSound(val);
-            }
-
-            for (auto& [key, val] : mMusicMap) {
-                UnloadMusicStream(val);
-            }
-
-            for (auto& [key, val] : mTextureMap) {
-                UnloadTexture(val);
-            }
-        }
-        //-------------------------------------------------
-        void Update() {
-
-            for (auto& [key, music] : mMusicMap) {
-                 UpdateMusicStream( music );
-            }
-
-        }
-        //-------------------------------------------------
         Music* getMusic(const std::string fileName , bool noAutoLoad = false );
         Sound* getSound(const std::string fileName, bool noAutoLoad = false );
         Texture2D* getTexture(const std::string fileName, bool noAutoLoad = false);

@@ -73,5 +73,35 @@ namespace RayFlux {
         return &mTextureMap[fileName];
     }
     // -------------------------------------------------------------------------
+    void ResourceManager::Update() {
+        for (auto& [key, music] : mMusicMap) {
+            UpdateMusicStream( music );
+        }
+    }
+    // -------------------------------------------------------------------------
+    void ResourceManager::shutDown() {
+        if (mShutDown) return;
+        mShutDown = true;
 
+        for (auto& [key, val] : mSoundMap) {
+            UnloadSound(val);
+        }
+
+        for (auto& [key, val] : mMusicMap) {
+            UnloadMusicStream(val);
+        }
+
+        for (auto& [key, val] : mTextureMap) {
+            UnloadTexture(val);
+        }
+    }
+    // -------------------------------------------------------------------------
+    void ResourceManager::blacklist(const std::__1::string fileName){
+        if (!isBlackListed(fileName))
+            mBlacklist.push_back(fileName);
+    }
+    // -------------------------------------------------------------------------
+    bool ResourceManager::isBlackListed(const std::__1::string fileName){
+        return std::find(mBlacklist.begin(), mBlacklist.end(), fileName) != mBlacklist.end();
+    }
 }

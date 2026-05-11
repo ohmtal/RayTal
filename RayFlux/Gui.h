@@ -1,7 +1,12 @@
+//-----------------------------------------------------------------------------
+// Copyright (c) 2026 Thomas Hühn (XXTH)
+// SPDX-License-Identifier: MIT
+//-----------------------------------------------------------------------------
+// RayFlux Gui
+//-----------------------------------------------------------------------------
 #pragma once
 
-#define RAYGUI_IMPLEMENTATION
-#include "raygui_custom.h"
+#include "raylib.h"
 #include "TypeDef.h"
 
 namespace RayFlux {
@@ -13,27 +18,10 @@ namespace RayFlux {
 
 
         U16 spacing = 10;
-        void Write(const char* text, Color color = LIGHTGRAY) {
-            DrawText(text, x, y,size, color);
-            y += size + spacing;
-        }
-
-        int CheckBox( const char *text, bool *checked) {
-            int result = GuiCheckBox(Rectangle((F32) x,(F32)y, (F32)size, (F32)size), text, checked);
-            y += size + spacing;
-            return result;
-        }
-        int ComboBox( F32 width, const char *text, int *active) {
-            int result = GuiComboBox(Rectangle((F32) x,(F32)y, width, (F32)size), text, active);
-            y += size + spacing;
-            return result;
-        }
-
-        int Button( F32 width, const char *text) {
-            int result = GuiButton(Rectangle((F32) x,(F32)y, width, (F32)size), text);
-            y += size + spacing;
-            return result;
-        }
+        void Write(const char* text, Color color = LIGHTGRAY);
+        int CheckBox( const char *text, bool *checked);
+        int ComboBox( F32 width, const char *text, int *active);
+        int Button( F32 width, const char *text);
 
 
     };
