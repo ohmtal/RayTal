@@ -5,8 +5,6 @@
 namespace RayFlux {
 
     // -------------------------------------------------------------------------
-    // MUSIC need to be called: UpdateMusicStream
-
     Music* ResourceManager::getMusic(const std::string fileName, bool noAutoLoad) {
         if (!mInitialized || isBlackListed(fileName)) return nullptr;
 
