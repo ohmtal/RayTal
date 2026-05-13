@@ -45,4 +45,31 @@ namespace RayFlux {
             path = Tools::string_replace_all(path, "pref:/", getPrefsPath());
         }
     }
+    //--------------------------------------------------------------------------
+    bool Settings::getVSync(){
+        return IsWindowState(FLAG_VSYNC_HINT);
+    }
+    void Settings::setVSync(bool value){
+
+        if (getVSync() != value) {
+            if ( !value ) ClearWindowState(FLAG_VSYNC_HINT);
+            else SetWindowState(FLAG_VSYNC_HINT);
+        }
+
+        EnableVSync = value;
+    }
+    //--------------------------------------------------------------------------
+    bool Settings::getFullScreen(){
+        return IsWindowState(FLAG_FULLSCREEN_MODE);
+
+    }
+
+    void Settings::setFullScreen(bool value){
+        if (getFullScreen() != value) {
+            ToggleFullscreen();
+        }
+        FullScreen = value;
+    }
+
+
 }

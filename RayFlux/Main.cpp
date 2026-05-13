@@ -99,6 +99,12 @@ namespace RayFlux {
         PlayMusicStream(*music);
         return true;
     }
+    bool Main::stopMusic(const char * musicFileName) {
+        Music* music = getResourceManager()->getMusic(musicFileName);
+        if (!music) return false;
+        StopMusicStream(*music);
+        return true;
+    }
     //--------------------------------------------------------------------------
     bool Main::playSound(const char* soundFileName){
         Sound* sound = getResourceManager()->getSound(soundFileName);

@@ -95,6 +95,7 @@ namespace RayFlux {
 
         // wrapper to play Music or Sound
         bool playMusic(const char * musicFileName, F32 volume = 1.f);
+        bool stopMusic(const char * musicFileName);
         bool playSound( const char* soundFileName );
 
         // wrapper for getting a Resource Object Pointer

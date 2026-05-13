@@ -20,14 +20,8 @@ namespace RayFlux {
 
         F32 spacing = 10.0f;
 
-        F32 defaultWidth = 100.f;
-        F32 w = defaultWidth;
-        // ------------------------------------------------
-        void SameLine(F32 width = 0.f) {
-            sameLine = true;
-            if (width > 0.f)  w = width;
-            else w = defaultWidth;
-        }
+
+
         // ------------------------------------------------
         void Write(const char* text, Color color = LIGHTGRAY);
         void Label(const char* );
@@ -38,13 +32,9 @@ namespace RayFlux {
 
     private:
         bool sameLine = false;
-        void inc(F32 valueY) {
-            if (sameLine) {
-                x += w;
-                sameLine = false;
-                return;
-            }
-            y += valueY;
+        void inc(F32 valueY = 0.f) {
+            if (valueY > 0.f) y += valueY;
+            else y += size + spacing;
         }
     };
 

@@ -51,6 +51,12 @@ namespace RayFlux {
         void setFPSLimit( int Limit);
         void setFullPath(std::string& path);
 
+        bool getVSync();
+        void setVSync(bool value);
+
+        bool getFullScreen();
+        void setFullScreen(bool value);
+
     }; //Settings
 
 } //namespace

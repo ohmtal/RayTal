@@ -30,7 +30,12 @@ int main(void)
     Lights.Init();
 
     // Music
-    app.playMusic("fullhouse2026.fms.mp3", 0.75f);
+    Music* mainMusic = app.getMusic("fullhouse2026.fms.mp3");
+    if (mainMusic) {
+        SetMusicVolume(*mainMusic, 0.75);
+        PlayMusicStream(*mainMusic);
+    }
+    // app.playMusic("fullhouse2026.fms.mp3", 0.75f);
 
     // Texture
     Texture2D *logoTex = app.getResourceManager()->getTexture("raylib_32x32.png");
@@ -53,10 +58,11 @@ int main(void)
         lg.y = 10;
 
         // logo
+        lg.size = 40.f;
         if (logoTex) DrawTexture(*logoTex, lg.x, lg.x, WHITE);
-        lg.y += 40.f;
-        lg.size = 40;
-        lg.Write("RayLib Test .....", GOLD);
+        lg.x += 40.f;
+        lg.Write("RayFlux Demo", GOLD);
+        lg.x = 10.f;
         lg.size = 20;
         lg.Write(TextFormat("FPS: %d", GetFPS()),  RED);
         lg.size = 10;
@@ -71,9 +77,27 @@ int main(void)
         Lights.RenderGui(lg);
 
         lg.Separator(100.f);
+        if (mainMusic) {
+            bool isMusicPlaying = IsMusicStreamPlaying(*mainMusic);
+            if (lg.CheckBox("Music", &isMusicPlaying)) {
+                // resume cant be used if not play was called before !
+                if (!isMusicPlaying) PauseMusicStream(*mainMusic);
+                else ResumeMusicStream(*mainMusic);
+            }
+        }
         if (lg.Button(100.f, "Test Sound" ) == 1) {
             app.playSound("flee.mp3");
         }
+        lg.Separator(100.f);
+        if (lg.CheckBox("VSnyc", &app.getSettings()->EnableVSync)) {
+            app.getSettings()->setVSync(app.getSettings()->EnableVSync);
+        }
+        if (lg.CheckBox("FullScreen", &app.getSettings()->FullScreen)) {
+            app.getSettings()->setFullScreen(app.getSettings()->FullScreen);
+        }
+
+
+
     };
     //--------
     app.OnShutDown = [&]() {
