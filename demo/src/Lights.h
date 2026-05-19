@@ -45,7 +45,8 @@ namespace RayFlux::Demo {
 
             // Ambient light level (some basic lighting)
             int ambientLoc = GetShaderLocation(mShader, "ambient");
-            SetShaderValue(mShader, ambientLoc, (F32[4]){ 0.1f, 0.1f, 0.1f, 1.0f }, SHADER_UNIFORM_VEC4);
+            float ambient[4] = { 0.1f, 0.1f, 0.1f, 1.0f };
+            SetShaderValue(mShader, ambientLoc, ambient, SHADER_UNIFORM_VEC4);
 
             // Create lights
 
@@ -105,11 +106,22 @@ namespace RayFlux::Demo {
         }
 
 
+        void RenderGui(Gui& gui) {
+            if (!isEnabled) return;
+            gui.Separator(100.f);
+            gui.Write("LIGHTS:", 20, WHITE);
+            gui.CheckBox( "Red", &mLights[1].enabled);
+            gui.CheckBox( "Green", &mLights[2].enabled);
+            gui.CheckBox( "Blue", &mLights[3].enabled);
+            gui.CheckBox( "Yellow", &mLights[0].enabled);
+
+        }
+        //Testing both
         void RenderGui(LazyGui& gui) {
             if (!isEnabled) return;
             gui.size = 20.f;
             gui.Separator(100.f);
-            gui.Write("LIGHTS:", WHITE);
+            gui.Write("LIGHTS:",  WHITE);
             gui.CheckBox( "Red", &mLights[1].enabled);
             gui.CheckBox( "Green", &mLights[2].enabled);
             gui.CheckBox( "Blue", &mLights[3].enabled);

@@ -30,6 +30,7 @@ set(RAYFLUX_SRC
   ${RAYFLUX_DIR}/RayFlux/Gui.cpp
   ${RAYFLUX_DIR}/RayFlux/ResourceManager.h
   ${RAYFLUX_DIR}/RayFlux/ResourceManager.cpp
+  ${RAYFLUX_DIR}/RayFlux/FileHelper.h
 )
 
 # ------------- RayLib

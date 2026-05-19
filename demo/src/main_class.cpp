@@ -8,8 +8,6 @@
 #include "Eyes.h"
 #include "Lights.h"
 
-
-
 #include <string>
 #include <math.h>
 //------------------------------------------------------------------------------
@@ -83,7 +81,7 @@ private:
         if (logoTex) DrawTexture(*logoTex, mLazyGui.x, mLazyGui.x, WHITE);
         mLazyGui.y += 40.f;
         mLazyGui.size = 40;
-        mLazyGui.Write("RayLib Test .....", GOLD);
+        mLazyGui.Write("RayFlux Class Demo", GOLD);
         mLazyGui.size = 20;
         mLazyGui.Write(TextFormat("FPS: %d", GetFPS()),  RED);
         mLazyGui.size = 10;

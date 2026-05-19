@@ -15,6 +15,8 @@
 #include "ResourceManager.h"
 
 #include <functional>
+#include <memory> // unique_ptr
+
 
 namespace RayFlux {
 
