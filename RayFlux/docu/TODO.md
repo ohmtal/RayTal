@@ -4,6 +4,9 @@
         - [ ] write SettingsStorage class
 	- [ ] port back to Ohmflux ! 
 
+- [ ] Web: 
+	* Uncaught RuntimeError: Aborted('requestFullscreen' was not exported. add it to EXPORTED_RUNTIME_METHODS (see the Emscripten FAQ))	
+	
 ```
 
 // ---------- TODO ---------------

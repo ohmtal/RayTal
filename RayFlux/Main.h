@@ -81,7 +81,7 @@ namespace RayFlux {
          * Main object loop
          */
         void Execute();
-
+        void IterateFrame();
         // ---------- Tool Functions ----------
         /**
          * setFullPath

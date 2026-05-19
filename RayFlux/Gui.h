@@ -68,7 +68,7 @@ namespace RayFlux {
 
         void SameLine( F32 relativeX=0.f ) {
             mSameLine = true;
-            mCursor.x =  mLeft + relativeX ;
+            if (relativeX > 0.f) mCursor.x =  mLeft + relativeX ;
         }
 
         F32 getX() { return mCursor.x; };

@@ -16,7 +16,7 @@
 #include "RayFlux/FileHelper.h"
 //------------------------------------------------------------------------------
 using namespace RayFlux::Tools;
-std::string IniFileName = "pref:/RayFlux.ini";
+std::string IniFileName = "pref://RayFlux.conf";
 //------------------------------------------------------------------------------
 int main(void)
 {
@@ -58,6 +58,8 @@ int main(void)
     Vector2 defaultGuiSize{20.f, 20.f};
 
     //-------
+    //FIXME SAVE/LOAD WEB CONFIG still not working !!!!!
+    RayFlux::FileHelper::initFS(app.getSettings()->getPrefsPath().c_str()); //WEB
     app.getSettings()->setFullPath(IniFileName);
     TraceLog(LOG_INFO, ">>>>>>>>>>>>>>> IniFileName is: %s", IniFileName.c_str());
     rini_data config =  { 0 };
@@ -85,6 +87,8 @@ int main(void)
              TraceLog(LOG_WARNING, ">>>>>>>>>>>>>>> Failed to save IniFile");
         }
     }
+    // initfs syncing ! RayFlux::FileHelper::syncFS(); //WEB
+
     rini_unload(&config);
 
     //------
@@ -151,6 +155,7 @@ int main(void)
     //--------
     app.OnShutDown = [&]() {
        Lights.ShutDown();
+       RayFlux::FileHelper::syncFS(); //WEB TEST HERE !
     };
     //--------
     app.Execute();

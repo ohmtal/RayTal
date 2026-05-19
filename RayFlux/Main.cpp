@@ -1,7 +1,37 @@
 #include "Main.h"
 #include "ResourceManager.h"
 
+#ifdef __EMSCRIPTEN__
+#include <emscripten/emscripten.h>
+
+//-------------------------------------------------------------------------------
+// webGL main loop:
+//-------------------------------------------------------------------------------
+// This wrapper bridges the C-style callback to your C++ class instance
+void emscripten_loop_wrapper(void* arg)
+{
+    // // On the first mouse click or key press, try to resume
+    // static bool audioResumed = false;
+    // if (!audioResumed) {
+    //     // Check for any SDL input event
+    //     SDL_Event event;
+    //     if (SDL_PeepEvents(&event, 1, SDL_PEEKEVENT, SDL_EVENT_MOUSE_BUTTON_DOWN, SDL_EVENT_KEY_DOWN) > 0) {
+    //         HandleAudioResume();
+    //         audioResumed = true;
+    //     }
+    // }
+    RayFlux::Main* app = static_cast<RayFlux::Main*>(arg);
+    app->IterateFrame();
+}
+#endif
+
+
+
 namespace RayFlux {
+
+    const F32 gFixedStep = 1.0f / 60.0f;
+    static F32 gAccumulator = 0.0f;
+
     //--------------------------------------------------------------------------
     bool Main::Init() {
         int windowFlags = 0;
@@ -69,24 +99,35 @@ namespace RayFlux {
         EndDrawing();
     }
     //--------------------------------------------------------------------------
-    void Main::Execute() {
+    void Main::IterateFrame() {
 
-        const F32 fixedStep = 1.0f / 60.0f;
-        static F32 accumulator = 0.0f;
+            gAccumulator += GetFrameTime();
+            while (gAccumulator >= gFixedStep) {
 
-        while (!WindowShouldClose())
-        {
-
-            accumulator += GetFrameTime();
-            while (accumulator >= fixedStep) {
-
-                this->Update(fixedStep);
-                accumulator -= fixedStep;
+                this->Update(gFixedStep);
+                gAccumulator -= gFixedStep;
             }
 
             this->Render();
 
-        }
+
+    }
+    void Main::Execute() {
+
+
+    #if defined(PLATFORM_WEB)
+        // emscripten_set_main_loop(UpdateDrawFrame, 60, 1);
+        emscripten_set_main_loop_arg(emscripten_loop_wrapper, this, 0, 1);
+        emscripten_set_main_loop_timing(EM_TIMING_RAF, 1); //force RAF
+
+    #else
+            while (!WindowShouldClose())
+            {
+                IterateFrame();
+            }
+    #endif
+
+
         if (OnShutDown) OnShutDown();
         ShutDown();
         CloseWindow();

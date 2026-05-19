@@ -109,11 +109,15 @@ namespace RayFlux::Demo {
         void RenderGui(Gui& gui) {
             if (!isEnabled) return;
             gui.Separator(100.f);
-            gui.Write("LIGHTS:", 20, WHITE);
-            gui.CheckBox( "Red", &mLights[1].enabled);
-            gui.CheckBox( "Green", &mLights[2].enabled);
-            gui.CheckBox( "Blue", &mLights[3].enabled);
-            gui.CheckBox( "Yellow", &mLights[0].enabled);
+            gui.Write("LIGHTS:", 12, WHITE);
+
+            gui.CheckBox( "R", &mLights[1].enabled);
+            gui.SameLine();
+            gui.CheckBox( "G", &mLights[2].enabled);
+
+            gui.CheckBox( "B", &mLights[3].enabled);
+            gui.SameLine();
+            gui.CheckBox( "Y", &mLights[0].enabled);
 
         }
         //Testing both
