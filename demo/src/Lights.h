@@ -70,7 +70,7 @@ namespace RayFlux::Demo {
         //----------------------------------------------------------------------
         void Update(F32 dt) override {
             if (!isEnabled) return;
-            UpdateCamera(&mCamera, CAMERA_ORBITAL);
+            // must be in Render :/ UpdateCamera(&mCamera, CAMERA_ORBITAL);
 
             // Update the shader with the mCamera view vector (points towards { 0.0f, 0.0f, 0.0f })
             F32 mCameraPos[3] = { mCamera.position.x, mCamera.position.y, mCamera.position.z };
@@ -90,6 +90,9 @@ namespace RayFlux::Demo {
         //----------------------------------------------------------------------
         void Render3D()  {
             if (!isEnabled) return;
+
+            UpdateCamera(&mCamera, CAMERA_ORBITAL);
+
             BeginMode3D(mCamera);
             BeginShaderMode(mShader);
             DrawPlane(Vector3Zero(), (Vector2) { 10.0, 10.0 }, WHITE);

@@ -109,8 +109,6 @@ namespace RayFlux {
             }
 
             this->Render();
-
-
     }
     void Main::Execute() {
 

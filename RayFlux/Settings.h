@@ -13,10 +13,10 @@
 namespace RayFlux {
     //--------------------------------------------------------------------------
     struct Settings {
-        U16 ScreenWidth = 1152;
-        U16 ScreenHeight = 648;
+        U32 ScreenWidth = 1152;
+        U32 ScreenHeight = 648;
         // not the exact fps since i use integer and round it.
-        U16  FpsLimit = 0;
+        U32  FpsLimit = 0;
         bool FullScreen       = false;
         bool WindowMaximized  = false;
         // you also can set FpsLimit
@@ -48,7 +48,9 @@ namespace RayFlux {
         std::string getPrefsPath();
         std::string getSafeCompany();
         std::string getSafeCaption();
-        void setFPSLimit( int Limit);
+        void setFPSLimit( U32 Limit);
+        const U32 getFPSLimit() {return FpsLimit;}
+
         void setFullPath(std::string& path);
 
         bool getVSync();

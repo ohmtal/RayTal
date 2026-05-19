@@ -20,7 +20,7 @@ namespace RayFlux {
         return Tools::sanitizeFilenameWithUnderScores(Caption);
     }
     //--------------------------------------------------------------------------
-    void Settings::setFPSLimit(int Limit){
+    void Settings::setFPSLimit(U32 Limit){
         SetTargetFPS(Limit);
         FpsLimit = Limit;
     }

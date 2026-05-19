@@ -89,9 +89,14 @@ namespace RayFlux {
         bool Write(const char *text,  Color color = LIGHTGRAY) { return Write(text, mDefaultSize.y, color); }
         // Label
         bool Label(const char *text);
-
+        // Separator
         bool Separator(const Vector2 size, Color color = LIGHTGRAY);
         bool Separator(const F32 width, Color color = LIGHTGRAY) { return Separator( { width, 0.f }, color); }
+
+        // GuiSlider  - return changed
+        bool Slider(const Vector2 size, const char *leftText,const char *rightText, F32* value, F32 min, F32 max);
+        bool Slider(F32 width, const char *text,  F32* value, F32 min = 0.f, F32 max = 1.f) { return Slider( { width, mDefaultSize.y }, nullptr, text, value, min, max); }
+
 
     // private: not --- for full control !
         void resetStates();

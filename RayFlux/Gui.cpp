@@ -142,6 +142,11 @@ namespace RayFlux {
         DrawLine(getX(), getY(),  getX() + size.x, getY(), color);
         return mIsClicked;
     }
+    // -------------------------------------------------------------------------
+    bool Gui::Slider(const Vector2 size, const char *leftText,const char *rightText, F32* value, F32 min, F32 max) {
+        setStates(size); // move ...
+        return GuiSlider(mLastBounds, leftText, rightText, value, min, max);
+    }
 
     // ------------------------------------------------------------------------
     //  LazyGui (replaced by Gui)
@@ -178,4 +183,6 @@ namespace RayFlux {
         DrawLine(x, y,  x + width, y, color);
         inc(spacing);
     }
+
+
 }

@@ -14,6 +14,9 @@
 #define RINI_IMPLEMENTATION
 #include "rini_custom.h"
 #include "RayFlux/FileHelper.h"
+
+#define Log(...) TraceLog(LOG_INFO, __VA_ARGS__);
+
 //------------------------------------------------------------------------------
 using namespace RayFlux::Tools;
 std::string IniFileName = "pref://RayFlux.conf";
@@ -41,11 +44,14 @@ int main(void)
 
     // Music
     Music* mainMusic = app.getMusic("fullhouse2026.fms.mp3");
+    F32 mainMusicVolume = 0.75f;
     if (mainMusic) {
-        SetMusicVolume(*mainMusic, 0.75);
+        SetMusicVolume(*mainMusic, mainMusicVolume);
+
+        // need to call play&pause else i can't use the CheckBox
         PlayMusicStream(*mainMusic);
+        PauseMusicStream(*mainMusic);
     }
-    // app.playMusic("fullhouse2026.fms.mp3", 0.75f);
 
     // Texture
     Texture2D *logoTex = app.getResourceManager()->getTexture("raylib_32x32.png");
@@ -58,7 +64,8 @@ int main(void)
     Vector2 defaultGuiSize{20.f, 20.f};
 
     //-------
-    //FIXME SAVE/LOAD WEB CONFIG still not working !!!!!
+    // FIXME SAVE/LOAD WEB CONFIG still not working !!!!!
+    // FIXME write your own key/value handler KEY;VALUE[BASE64encoded]
     RayFlux::FileHelper::initFS(app.getSettings()->getPrefsPath().c_str()); //WEB
     app.getSettings()->setFullPath(IniFileName);
     TraceLog(LOG_INFO, ">>>>>>>>>>>>>>> IniFileName is: %s", IniFileName.c_str());
@@ -129,9 +136,8 @@ int main(void)
         }
         // combine test >>>>>
         gui.setStates(SliderSize);
-        static float sliderVal = 1.f; //GetMusicVolume(mainMusic);
-        if (GuiSlider(gui.mLastBounds, nullptr, "Vol.", &sliderVal, 0.f, 1.f)) {
-            SetMusicVolume(*mainMusic,  sliderVal);
+        if (GuiSlider(gui.mLastBounds, nullptr, "Vol.", &mainMusicVolume, 0.f, 1.f)) {
+            SetMusicVolume(*mainMusic,  mainMusicVolume);
         }
 
         // <<<<
@@ -143,6 +149,13 @@ int main(void)
         if (gui.CheckBox(defaultGuiSize, "VSnyc", &app.getSettings()->EnableVSync)) {
             app.getSettings()->setVSync(app.getSettings()->EnableVSync);
         }
+
+        // normalized 25 - 500 fps
+        static float fpsLimit = 500.f / (F32)app.getSettings()->getFPSLimit();
+        if (gui.Slider(100.f, "FPS Limit", &fpsLimit, 0.05f, 1.f)) {
+            app.getSettings()->setFPSLimit((U32)(fpsLimit * 500.f));
+        }
+
         if (gui.CheckBox(defaultGuiSize, "FullScreen", &app.getSettings()->FullScreen)) {
             app.getSettings()->setFullScreen(app.getSettings()->FullScreen);
         }
