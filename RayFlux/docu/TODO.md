@@ -1,3 +1,9 @@
+- [ ] Own key/value saver: Separator is always the problem so i do 
+  	* KEY(string);VALUE(BASE64 STRING)\n
+	- [ ] port base64 from OhmFlux
+        - [ ] write SettingsStorage class
+	- [ ] port back to Ohmflux ! 
+
 ```
 
 // ---------- TODO ---------------
@@ -7,21 +13,14 @@
  * [X] OnUpdate
  * [ ] OnEvent :not really a eventsystem implemented ?! << more research on this
  *
- * [ ] OnUpdate add fixed call with deltaTime
+ * [X] OnUpdate add fixed call with deltaTime
  *
- * [ ] Manager
- *      [ ] BaseManager
- *      [ ] TextureManager
- *      [ ] AudioManager
+ * [X] Manager: Sound, Musik and Texture
  *
  * [ ] Like BaseFlux :
- *      [ ] setFullPath
- *      [ ] bool setWindowIcon(Image image);
- *          Image myImage = LoadImage("..")
- *          SetWindowIcon(myImage);
- *          UnloadImage(myImage); // in Test it did (desktop source copy the pixels) work but there are different platforms
+ *      [X] setFullPath
+ *      [X] bool setWindowIcon
  *      [X] Init << bool InitSDL();
- *      [~] bool initImGui();
  *      [ ] void shutDown();
  *      [X] bool Execute();
  *      [ ] void TerminateApplication(void);
