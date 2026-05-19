@@ -109,7 +109,7 @@ int main(void)
         if (logoTex) DrawTexture(*logoTex, gui.getX(), gui.getY(), WHITE);
         gui.SameLine(40.f);
         gui.Write("RayFlux Callback Demo", 40, GOLD);
-        gui.Write(TextFormat("FPS: %d", GetFPS()),20,  RED);
+        gui.Write(TextFormat("FPS: %d FT:%f", GetFPS(), GetFrameTime()),20,  RED);
 
         gui.Write(confPathText.c_str(), 10, ORANGE);
         gui.Write(prefPathText.c_str(), 10, SKYBLUE);
