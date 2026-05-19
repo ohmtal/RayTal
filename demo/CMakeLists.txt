@@ -67,8 +67,6 @@ endif()
 # ------------- Main
 add_executable(${PROJECT_NAME}
     ${RAYFLUX_SRC}
-    ${KS_SRCS}
-    ${TORQUESIM_SRCS}
     ${PROJECT_SRC}
 
 )
@@ -77,7 +75,6 @@ target_include_directories(${PROJECT_NAME} PRIVATE
     ${RAYFLUX_DIR}
     ${RAYLIB_DIR}/src
     ${RAYFLUX_DIR}/lib/rayspice/
-    ${KS_INCLUDES}
 )
 
 
