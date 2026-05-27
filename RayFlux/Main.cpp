@@ -58,7 +58,9 @@ namespace RayFlux {
         // can i unload ?  - seams so
         UnloadImage(imgLogo);
 
-        mResourceManager = std::make_unique<ResourceManager>(this);
+        if (!mResourceManager.initialize(this)) {
+            return false;
+        }
 
         if (!getSettings()->DisableSound) {
             InitAudioDevice();
@@ -77,12 +79,12 @@ namespace RayFlux {
         for (auto& obj: mCoreObjects) {
             obj->ShutDown();
         }
-        mResourceManager->shutDown();
+        getResourceManager()->shutDown();
     }
     //--------------------------------------------------------------------------
     void Main::Update(F32 dt) {
         if (OnUpdate) OnUpdate(dt);
-        mResourceManager->Update();
+        getResourceManager()->Update();
 
         for (auto& obj: mCoreObjects) {
             obj->Update(dt);

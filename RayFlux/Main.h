@@ -27,7 +27,7 @@ namespace RayFlux {
     class Main :public Core {
     protected:
         Settings mSettings;
-        std::unique_ptr<ResourceManager> mResourceManager;
+        ResourceManager mResourceManager;
 
     public:
         /**
@@ -38,7 +38,7 @@ namespace RayFlux {
         std::vector<std::unique_ptr<Core>> mCoreObjects;
 
         Settings* getSettings() { return &mSettings; }
-        ResourceManager* getResourceManager() { return mResourceManager.get(); }
+        ResourceManager* getResourceManager() { return &mResourceManager; }
 
         // ---------- Events ----------
         /**

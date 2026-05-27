@@ -77,6 +77,14 @@ namespace RayFlux {
         }
     }
     // -------------------------------------------------------------------------
+    bool ResourceManager::initialize(Main* main){
+        if (main) {
+            mMain = main;
+            mInitialized = true;
+        }
+        return mInitialized;
+    }
+    // -------------------------------------------------------------------------
     void ResourceManager::shutDown() {
         if (mShutDown) return;
         mInitialized = false;
@@ -103,4 +111,5 @@ namespace RayFlux {
     bool ResourceManager::isBlackListed(const std::string fileName){
         return std::find(mBlacklist.begin(), mBlacklist.end(), fileName) != mBlacklist.end();
     }
+
 }

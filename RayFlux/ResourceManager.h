@@ -28,16 +28,19 @@ namespace RayFlux {
         bool mShutDown = false;
 
     public:
-        ResourceManager(Main* main) : mMain(main) {
-            if (main) mInitialized = true;
+        ResourceManager(Main* main = nullptr) {
+           initialize(main);
         }
+
+        bool initialize(Main* main = nullptr);
+        void shutDown();
 
         ~ResourceManager() {
             shutDown();
         }
         bool isBlackListed(const std::string fileName);
         void blacklist(const std::string fileName);
-        void shutDown();
+
         void Update();
 
         Music* getMusic(const std::string fileName , bool noAutoLoad = false );
