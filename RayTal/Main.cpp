@@ -20,14 +20,14 @@ void emscripten_loop_wrapper(void* arg)
     //         audioResumed = true;
     //     }
     // }
-    RayFlux::Main* app = static_cast<RayFlux::Main*>(arg);
+    RayTal::Main* app = static_cast<RayTal::Main*>(arg);
     app->IterateFrame();
 }
 #endif
 
 
 
-namespace RayFlux {
+namespace RayTal {
 
     const F32 gFixedStep = 1.0f / 60.0f;
     static F32 gAccumulator = 0.0f;

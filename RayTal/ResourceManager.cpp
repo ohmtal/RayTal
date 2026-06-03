@@ -2,7 +2,7 @@
 #include "ResourceManager.h"
 #include "Main.h"
 
-namespace RayFlux {
+namespace RayTal {
 
     // -------------------------------------------------------------------------
     Music* ResourceManager::getMusic(const std::string fileName, bool noAutoLoad) {

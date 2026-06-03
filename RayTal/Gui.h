@@ -2,7 +2,7 @@
 // Copyright (c) 2026 Thomas Hühn (XXTH)
 // SPDX-License-Identifier: MIT
 //-----------------------------------------------------------------------------
-// RayFlux Gui
+// RayTal Gui
 //
 // Struct Gui handle gui elements in a way we can get the last states like
 // mIsClicked. Every Widget return a boolean usually mIsClicked.
@@ -13,7 +13,7 @@
 //
 // Example:
 // init:
-//      RayFlux::Gui gui(100 , 100);
+//      RayTal::Gui gui(100 , 100);
 // render:
 //      gui.Begin(); // reset cursor and mLastBounds
 //      gui.Write("Hello World");
@@ -33,7 +33,7 @@
 #include "TypeDef.h"
 
 
-namespace RayFlux {
+namespace RayTal {
 
    struct Gui {
         F32 mLeft = 0.f;

@@ -1,4 +1,4 @@
-# RayFlux 
+# RayTal 
 
 Basic RayLib Test with Wrapper 
 

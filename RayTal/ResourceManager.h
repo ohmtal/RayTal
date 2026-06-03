@@ -2,7 +2,7 @@
 // Copyright (c) 2026 Thomas Hühn (XXTH)
 // SPDX-License-Identifier: MIT
 //-----------------------------------------------------------------------------
-// RayFlux ResourceManager
+// RayTal ResourceManager
 //-----------------------------------------------------------------------------
 #pragma once
 #include <vector>
@@ -12,7 +12,7 @@
 
 #include "raylib.h"
 
-namespace RayFlux {
+namespace RayTal {
     class Main; //fwd
     class ResourceManager {
     protected:

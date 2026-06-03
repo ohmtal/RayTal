@@ -2,7 +2,7 @@
 // Copyright (c) 2026 Thomas Hühn (XXTH)
 // SPDX-License-Identifier: MIT
 //------------------------------------------------------------------------------
-// RayFlux Settings
+// RayTal Settings
 //------------------------------------------------------------------------------
 #pragma once
 
@@ -10,7 +10,7 @@
 #include "Tools.h"
 #include "TypeDef.h"
 
-namespace RayFlux {
+namespace RayTal {
     //--------------------------------------------------------------------------
     struct Settings {
         U32 ScreenWidth = 1152;

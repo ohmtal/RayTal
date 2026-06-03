@@ -2,7 +2,7 @@
 // Copyright (c) 2026 Thomas Hühn (XXTH)
 // SPDX-License-Identifier: MIT
 //------------------------------------------------------------------------------
-// RayFlux Main
+// RayTal Main
 //------------------------------------------------------------------------------
 #pragma once
 
@@ -18,7 +18,7 @@
 #include <memory> // unique_ptr
 
 
-namespace RayFlux {
+namespace RayTal {
 
     #define COLOR_SLATEGRAY   CLITERAL(Color){ 20, 20, 20, 255 }     // Darkest Gray
 

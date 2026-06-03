@@ -5,7 +5,7 @@
 
 
 
-namespace RayFlux {
+namespace RayTal {
     // -------------------------------------------------------------------------
     void Gui::enhanceCursor(){
         if ( mSameLine ) {

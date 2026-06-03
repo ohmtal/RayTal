@@ -25,7 +25,7 @@
 #endif
 
 // -----------------------------------------------------------------------------
-namespace RayFlux::FileHelper {
+namespace RayTal::FileHelper {
     // -----------------------------------------------------------------------------
     // Helper function to check if a character is a path separator
     int IsSeparator(char c) {

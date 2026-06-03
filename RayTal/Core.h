@@ -1,7 +1,7 @@
 /*
  * Copy and Paste Template:
 
-    class TEMPLATE: public RayFlux::Core {
+    class TEMPLATE: public RayTal::Core {
     public:
         //----------------------------------------------------------------------
         bool Init() override {
@@ -28,7 +28,7 @@
 
 #include "TypeDef.h"
 
-namespace RayFlux {
+namespace RayTal {
 
     // ---------------- Core Class
     class Core  {

@@ -1,8 +1,8 @@
 /*
  * Demo with callbacks
  */
-#include "RayFlux/Main.h"
-#include "RayFlux/Gui.h"
+#include "RayTal/Main.h"
+#include "RayTal/Gui.h"
 
 
 #include "Lights.h"
@@ -13,17 +13,17 @@
 //FIXME write your one saver to FileHelper ?!
 #define RINI_IMPLEMENTATION
 #include "rini_custom.h"
-#include "RayFlux/FileHelper.h"
+#include "RayTal/FileHelper.h"
 
 #define Log(...) TraceLog(LOG_INFO, __VA_ARGS__);
 
 //------------------------------------------------------------------------------
-using namespace RayFlux::Tools;
-std::string IniFileName = "pref://RayFlux.conf";
+using namespace RayTal::Tools;
+std::string IniFileName = "pref://RayTal.conf";
 //------------------------------------------------------------------------------
 int main(void)
 {
-    RayFlux::Main app;
+    RayTal::Main app;
     app.getSettings()->WindowMaximized = true;
     app.getSettings()->EnableVSync = false;
     app.getSettings()->setFPSLimit(500);
@@ -36,10 +36,10 @@ int main(void)
         return 1;
     }
 
-    RayFlux::Demo::Eyes Eyes;
+    RayTal::Demo::Eyes Eyes;
     Eyes.Init();
 
-    RayFlux::Demo::Lights Lights;
+    RayTal::Demo::Lights Lights;
     Lights.Init();
 
     // Music
@@ -59,14 +59,14 @@ int main(void)
     //-------
     std::string confPathText = TextFormat("Base Path: %s", getBasePath().c_str());
     std::string prefPathText = TextFormat("Config Path: %s", app.getSettings()->getPrefsPath().c_str());
-    // RayFlux::LazyGui lg {10.f, 10.f};
-    RayFlux::Gui gui(10.f, 10.f);
+    // RayTal::LazyGui lg {10.f, 10.f};
+    RayTal::Gui gui(10.f, 10.f);
     Vector2 defaultGuiSize{20.f, 20.f};
 
     //-------
     // FIXME SAVE/LOAD WEB CONFIG still not working !!!!!
     // FIXME write your own key/value handler KEY;VALUE[BASE64encoded]
-    RayFlux::FileHelper::initFS(app.getSettings()->getPrefsPath().c_str()); //WEB
+    RayTal::FileHelper::initFS(app.getSettings()->getPrefsPath().c_str()); //WEB
     app.getSettings()->setFullPath(IniFileName);
     TraceLog(LOG_INFO, ">>>>>>>>>>>>>>> IniFileName is: %s", IniFileName.c_str());
     rini_data config =  { 0 };
@@ -86,7 +86,7 @@ int main(void)
 
     if (!rini_save(config, IniFileName.c_str())) {
 
-        if (RayFlux::FileHelper::createDirFromFileIfNotExits(IniFileName.c_str())
+        if (RayTal::FileHelper::createDirFromFileIfNotExits(IniFileName.c_str())
             && rini_save(config, IniFileName.c_str())
         ) {
             TraceLog(LOG_INFO, ">>>>>>>>>>>>>>>  IniFile SAVED!");
@@ -94,7 +94,7 @@ int main(void)
              TraceLog(LOG_WARNING, ">>>>>>>>>>>>>>> Failed to save IniFile");
         }
     }
-    // initfs syncing ! RayFlux::FileHelper::syncFS(); //WEB
+    // initfs syncing ! RayTal::FileHelper::syncFS(); //WEB
 
     rini_unload(&config);
 
@@ -115,7 +115,7 @@ int main(void)
         // logo
         if (logoTex) DrawTexture(*logoTex, gui.getX(), gui.getY(), WHITE);
         gui.SameLine(40.f);
-        gui.Write("RayFlux Callback Demo", 40, GOLD);
+        gui.Write("RayTal Callback Demo", 40, GOLD);
         gui.Write(TextFormat("FPS: %d FT:%f", GetFPS(), GetFrameTime()),20,  RED);
 
         gui.Write(confPathText.c_str(), 10, ORANGE);
@@ -168,7 +168,7 @@ int main(void)
     //--------
     app.OnShutDown = [&]() {
        Lights.ShutDown();
-       RayFlux::FileHelper::syncFS(); //WEB TEST HERE !
+       RayTal::FileHelper::syncFS(); //WEB TEST HERE !
     };
     //--------
     app.Execute();

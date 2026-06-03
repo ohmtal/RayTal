@@ -2,8 +2,8 @@
  * Demo with class
  */
 
-#include "RayFlux/Main.h"
-#include "RayFlux/Gui.h"
+#include "RayTal/Main.h"
+#include "RayTal/Gui.h"
 
 #include "Eyes.h"
 #include "Lights.h"
@@ -11,10 +11,10 @@
 #include <string>
 #include <math.h>
 //------------------------------------------------------------------------------
-using namespace RayFlux::Tools;
+using namespace RayTal::Tools;
 
 //------------------------------------------------------------------------------
-namespace RayFlux {
+namespace RayTal {
 
 class DemoMain: public Main {
     typedef Main Parent ;
@@ -26,7 +26,7 @@ class DemoMain: public Main {
     Demo::Eyes mEyes;
 
     // GUI
-    RayFlux::LazyGui mLazyGui {10, 10, 20};
+    RayTal::LazyGui mLazyGui {10, 10, 20};
     std::string mConfPathText = "";
     std::string mPrefPathText = "";
 
@@ -81,7 +81,7 @@ private:
         if (logoTex) DrawTexture(*logoTex, mLazyGui.x, mLazyGui.x, WHITE);
         mLazyGui.y += 40.f;
         mLazyGui.size = 40;
-        mLazyGui.Write("RayFlux Class Demo", GOLD);
+        mLazyGui.Write("RayTal Class Demo", GOLD);
         mLazyGui.size = 20;
         mLazyGui.Write(TextFormat("FPS: %d", GetFPS()),  RED);
         mLazyGui.size = 10;
@@ -106,7 +106,7 @@ private:
 
 int main(void)
 {
-    RayFlux::DemoMain app;
+    RayTal::DemoMain app;
     app.getSettings()->WindowMaximized = true;
     app.getSettings()->IconFilename = "texture:/raylib_32x32.png";
 

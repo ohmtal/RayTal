@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.24)
 # -----------------------------------------------------------------------------
 # Project settings:
 
-project(RayFluxDemo)
+project(RayTalDemo)
 set(PROJECT_SRC
     # src/main_class.cpp
     src/main_callbacks.cpp
@@ -18,30 +18,30 @@ set (ASSET_PATH ${CMAKE_CURRENT_LIST_DIR}/assets@assets)
 	# cmake --build web_debug -j 24
 # Web Run: (bash)
 #  source /etc/profile.d/emscripten.sh
-#  emrun RayFluxDemo.html
+#  emrun RayTalDemo.html
 
 # -----------------------------------------------------------------------------
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 include(FetchContent)
-# ------------- RayFlux
-set(RAYFLUX_DIR "${CMAKE_CURRENT_LIST_DIR}/../" CACHE PATH "Path to RayFlux")
+# ------------- RayTal
+set(RAYFLUX_DIR "${CMAKE_CURRENT_LIST_DIR}/../" CACHE PATH "Path to RayTal")
 # later as lib .... add_subdirectory()
 set(RAYFLUX_SRC
-  ${RAYFLUX_DIR}/RayFlux/Core.h
-  ${RAYFLUX_DIR}/RayFlux/Settings.h
-  ${RAYFLUX_DIR}/RayFlux/Main.h
-  ${RAYFLUX_DIR}/RayFlux/Tools.cpp
-  ${RAYFLUX_DIR}/RayFlux/Tools.h
-  ${RAYFLUX_DIR}/RayFlux/Main.cpp
-  ${RAYFLUX_DIR}/RayFlux/TypeDef.h
-  ${RAYFLUX_DIR}/RayFlux/Settings.cpp
-  ${RAYFLUX_DIR}/RayFlux/Gui.h
-  ${RAYFLUX_DIR}/RayFlux/Gui.cpp
-  ${RAYFLUX_DIR}/RayFlux/ResourceManager.h
-  ${RAYFLUX_DIR}/RayFlux/ResourceManager.cpp
-  ${RAYFLUX_DIR}/RayFlux/FileHelper.h
+  ${RAYFLUX_DIR}/RayTal/Core.h
+  ${RAYFLUX_DIR}/RayTal/Settings.h
+  ${RAYFLUX_DIR}/RayTal/Main.h
+  ${RAYFLUX_DIR}/RayTal/Tools.cpp
+  ${RAYFLUX_DIR}/RayTal/Tools.h
+  ${RAYFLUX_DIR}/RayTal/Main.cpp
+  ${RAYFLUX_DIR}/RayTal/TypeDef.h
+  ${RAYFLUX_DIR}/RayTal/Settings.cpp
+  ${RAYFLUX_DIR}/RayTal/Gui.h
+  ${RAYFLUX_DIR}/RayTal/Gui.cpp
+  ${RAYFLUX_DIR}/RayTal/ResourceManager.h
+  ${RAYFLUX_DIR}/RayTal/ResourceManager.cpp
+  ${RAYFLUX_DIR}/RayTal/FileHelper.h
 )
 
 # ------------- RayLib

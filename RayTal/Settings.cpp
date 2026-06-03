@@ -1,7 +1,7 @@
 #include "Settings.h"
 #include "raylib.h"
 
-namespace RayFlux {
+namespace RayTal {
 
     //--------------------------------------------------------------------------
     std::string Settings::getPrefsPath() {

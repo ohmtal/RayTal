@@ -2,7 +2,7 @@
 // Copyright (c) 2026 Thomas Hühn (XXTH)
 // SPDX-License-Identifier: MIT
 //------------------------------------------------------------------------------
-// RayFlux::Tools
+// RayTal::Tools
 //------------------------------------------------------------------------------
 #pragma once
 
@@ -10,7 +10,7 @@
 #include <string>
 
 
-namespace RayFlux::Tools {
+namespace RayTal::Tools {
     std::string GetUserConfigPath();
     // "SDL_GetPrefPath" equivalent
     std::string GetPrefPath(const char* org, const char* app);

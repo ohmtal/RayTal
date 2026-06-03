@@ -2,7 +2,7 @@
 // Copyright (c) 2026 Thomas Hühn (XXTH)
 // SPDX-License-Identifier: MIT
 //-----------------------------------------------------------------------------
-// RayFlux Tools
+// RayTal Tools
 //-----------------------------------------------------------------------------
 #include "Tools.h"
 
@@ -14,7 +14,7 @@
 
 #include "raylib.h" //<< for GetApplicationDirectory
 
-namespace RayFlux::Tools {
+namespace RayTal::Tools {
 
     std::string GetUserConfigPath() {
         char path[512] = { 0 };

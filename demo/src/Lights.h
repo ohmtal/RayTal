@@ -1,7 +1,7 @@
 #pragma once
 
-#include "RayFlux/Main.h"
-#include "RayFlux/Gui.h"
+#include "RayTal/Main.h"
+#include "RayTal/Gui.h"
 
 // from rayspice
 #define RLIGHTS_IMPLEMENTATION
@@ -13,7 +13,7 @@
 #define GLSL_VERSION            100
 #endif
 //------------------------------------------------------------------------------
-namespace RayFlux::Demo {
+namespace RayTal::Demo {
 
     class Lights: public Core {
         Camera mCamera = { {0} };

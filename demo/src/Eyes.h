@@ -1,8 +1,8 @@
 #pragma once
 
-#include "RayFlux/Main.h"
+#include "RayTal/Main.h"
 
-namespace RayFlux::Demo {
+namespace RayTal::Demo {
 class Eyes: public Core {
     Vector2 mScleraLeftPosition;
     Vector2 mScleraRightPosition;
