@@ -123,17 +123,6 @@ namespace RayTal::Demo {
             gui.CheckBox( "Y", &mLights[0].enabled);
 
         }
-        //Testing both
-        void RenderGui(LazyGui& gui) {
-            if (!isEnabled) return;
-            gui.size = 20.f;
-            gui.Separator(100.f);
-            gui.Write("LIGHTS:",  WHITE);
-            gui.CheckBox( "Red", &mLights[1].enabled);
-            gui.CheckBox( "Green", &mLights[2].enabled);
-            gui.CheckBox( "Blue", &mLights[3].enabled);
-            gui.CheckBox( "Yellow", &mLights[0].enabled);
 
-        }
     }; //class...
 }

@@ -10,6 +10,13 @@ set(PROJECT_SRC
 
 set (ASSET_PATH ${CMAKE_CURRENT_LIST_DIR}/assets@assets)
 # -----------------------------------------------------------------------------
+if(NOT CMAKE_BUILD_TYPE AND NOT CMAKE_CONFIGURATION_TYPES)
+  set(CMAKE_BUILD_TYPE "Debug" CACHE STRING "Choose the type of build." FORCE)
+  set_property(CACHE CMAKE_BUILD_TYPE PROPERTY STRINGS "Debug" "Release" "MinSizeRel" "RelWithDebInfo")
+endif()
+# -----------------------------------------------------------------------------
+
+
 # WEB Example compile (arch)
 	# cmake -S . -B web_debug \
 	# 	-DCMAKE_TOOLCHAIN_FILE=/usr/lib/emscripten/cmake/Modules/Platform/Emscripten.cmake \
@@ -24,29 +31,29 @@ set (ASSET_PATH ${CMAKE_CURRENT_LIST_DIR}/assets@assets)
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-include(FetchContent)
+# include(FetchContent)
 # ------------- RayTal
-set(RAYFLUX_DIR "${CMAKE_CURRENT_LIST_DIR}/../" CACHE PATH "Path to RayTal")
+set(RAYTAL_DIR "${CMAKE_CURRENT_LIST_DIR}/../" CACHE PATH "Path to RayTal")
 # later as lib .... add_subdirectory()
-set(RAYFLUX_SRC
-  ${RAYFLUX_DIR}/RayTal/Core.h
-  ${RAYFLUX_DIR}/RayTal/Settings.h
-  ${RAYFLUX_DIR}/RayTal/Main.h
-  ${RAYFLUX_DIR}/RayTal/Tools.cpp
-  ${RAYFLUX_DIR}/RayTal/Tools.h
-  ${RAYFLUX_DIR}/RayTal/Main.cpp
-  ${RAYFLUX_DIR}/RayTal/TypeDef.h
-  ${RAYFLUX_DIR}/RayTal/Settings.cpp
-  ${RAYFLUX_DIR}/RayTal/Gui.h
-  ${RAYFLUX_DIR}/RayTal/Gui.cpp
-  ${RAYFLUX_DIR}/RayTal/ResourceManager.h
-  ${RAYFLUX_DIR}/RayTal/ResourceManager.cpp
-  ${RAYFLUX_DIR}/RayTal/FileHelper.h
+set(RAYTAL_SRC
+  ${RAYTAL_DIR}/RayTal/Core.h
+  ${RAYTAL_DIR}/RayTal/Settings.h
+  ${RAYTAL_DIR}/RayTal/Main.h
+  ${RAYTAL_DIR}/RayTal/Tools.cpp
+  ${RAYTAL_DIR}/RayTal/Tools.h
+  ${RAYTAL_DIR}/RayTal/Main.cpp
+  ${RAYTAL_DIR}/RayTal/TypeDef.h
+  ${RAYTAL_DIR}/RayTal/Settings.cpp
+  ${RAYTAL_DIR}/RayTal/Gui.h
+  ${RAYTAL_DIR}/RayTal/Gui.cpp
+  ${RAYTAL_DIR}/RayTal/ResourceManager.h
+  ${RAYTAL_DIR}/RayTal/ResourceManager.cpp
+  ${RAYTAL_DIR}/RayTal/FileHelper.h
 )
 
 # ------------- RayLib
 # set(PLATFORM "SDL" CACHE STRING "raylib platform" FORCE)
-set(RAYLIB_DIR "${RAYFLUX_DIR}/lib/raylib" CACHE PATH "Path to RayLib")
+set(RAYLIB_DIR "${RAYTAL_DIR}/lib/raylib" CACHE PATH "Path to RayLib")
 message( STATUS "\n Set Raylib to: " ${RAYLIB_DIR} )
 
 if(NOT EXISTS "${RAYLIB_DIR}/CMakeLists.txt")
@@ -66,15 +73,15 @@ endif()
 
 # ------------- Main
 add_executable(${PROJECT_NAME}
-    ${RAYFLUX_SRC}
+    ${RAYTAL_SRC}
     ${PROJECT_SRC}
 
 )
 
 target_include_directories(${PROJECT_NAME} PRIVATE
-    ${RAYFLUX_DIR}
+    ${RAYTAL_DIR}
     ${RAYLIB_DIR}/src
-    ${RAYFLUX_DIR}/lib/rayspice/
+    ${RAYTAL_DIR}/lib/rayspice/
 )
 
 

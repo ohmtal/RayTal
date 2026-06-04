@@ -30,6 +30,10 @@ int main(void)
     app.getSettings()->IconFilename = "texture:/raylib_32x32.png";
     // app.settings.FullScreen = true;
 
+    std::string consoleInputStr = "";
+    std::string consoleStr = "";
+
+
     if (!app.Init()) {
         TraceLog(LOG_ERROR, "%s", "Failed to Initialize!");
 
@@ -60,7 +64,7 @@ int main(void)
     std::string confPathText = TextFormat("Base Path: %s", getBasePath().c_str());
     std::string prefPathText = TextFormat("Config Path: %s", app.getSettings()->getPrefsPath().c_str());
     // RayTal::LazyGui lg {10.f, 10.f};
-    RayTal::Gui gui(10.f, 10.f);
+    RayTal::Gui gui;
     Vector2 defaultGuiSize{20.f, 20.f};
 
     //-------
@@ -105,12 +109,13 @@ int main(void)
     };
     //------
     Vector2 SliderSize = { 100.f, 20.f };
+    Vector2 ConsoleSize = { 100.f, 100.f };
 
     app.OnRender = [&]() {
 
         Lights.Render3D();
         Eyes.Render();
-        gui.Begin();
+        gui.Begin( 10, 10);
 
         // logo
         if (logoTex) DrawTexture(*logoTex, gui.getX(), gui.getY(), WHITE);
@@ -160,7 +165,20 @@ int main(void)
             app.getSettings()->setFullScreen(app.getSettings()->FullScreen);
         }
 
+        gui.Begin(GetScreenWidth() / 2.0 -SliderSize.x / 2.f, GetScreenHeight() - 240);
 
+        gui.setStates(ConsoleSize);
+        GuiListView(gui.mLastBounds, consoleStr.data(), nullptr, nullptr);
+
+
+        gui.setStates(SliderSize);
+        if (GuiTextBox(gui.mLastBounds, consoleInputStr.data(), 256, true)) {
+            consoleStr += consoleInputStr.c_str();
+            consoleStr += "\r\n";
+            Log("wrote text %s, new Str: %s ",consoleInputStr.c_str(), consoleStr.c_str() );
+
+            consoleInputStr = "";
+        }
 
         gui.End();
 

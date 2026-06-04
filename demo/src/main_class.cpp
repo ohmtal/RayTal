@@ -26,7 +26,7 @@ class DemoMain: public Main {
     Demo::Eyes mEyes;
 
     // GUI
-    RayTal::LazyGui mLazyGui {10, 10, 20};
+    RayTal::Gui gui;
     std::string mConfPathText = "";
     std::string mPrefPathText = "";
 
@@ -75,27 +75,17 @@ private:
         mLights.Render3D();
         mEyes.Render();
 
-        mLazyGui.y = 10;
+
 
         // logo
-        if (logoTex) DrawTexture(*logoTex, mLazyGui.x, mLazyGui.x, WHITE);
-        mLazyGui.y += 40.f;
-        mLazyGui.size = 40;
-        mLazyGui.Write("RayTal Class Demo", GOLD);
-        mLazyGui.size = 20;
-        mLazyGui.Write(TextFormat("FPS: %d", GetFPS()),  RED);
-        mLazyGui.size = 10;
-        mLazyGui.Write(mConfPathText.c_str(), ORANGE);
-        mLazyGui.Write(mPrefPathText.c_str(), SKYBLUE);
-        mLazyGui.Write(logoTex ? "Logo loaded" : "Logo failed!");
-        mLazyGui.size = 20;
-        mLazyGui.Write("LIGHTS:", WHITE);
-        mLights.RenderGui(mLazyGui);
+        gui.Begin(10,10);
+        if (logoTex) DrawTexture(*logoTex, gui.getX(), gui.getY(), WHITE);
+        gui.SameLine(40.f);
+        gui.Write("RayTal Class Demo", 40, GOLD);
+        gui.Write(TextFormat("FPS: %d FT:%f", GetFPS(), GetFrameTime()),20,  RED);
 
+        mLights.RenderGui(gui);
 
-        if (mLazyGui.Button(100.f, "Test Sound" ) == 1) {
-            playSound("flee.mp3");
-        }
 
          EndDrawing();
     }
