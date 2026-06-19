@@ -10,16 +10,6 @@
 // This wrapper bridges the C-style callback to your C++ class instance
 void emscripten_loop_wrapper(void* arg)
 {
-    // // On the first mouse click or key press, try to resume
-    // static bool audioResumed = false;
-    // if (!audioResumed) {
-    //     // Check for any SDL input event
-    //     SDL_Event event;
-    //     if (SDL_PeepEvents(&event, 1, SDL_PEEKEVENT, SDL_EVENT_MOUSE_BUTTON_DOWN, SDL_EVENT_KEY_DOWN) > 0) {
-    //         HandleAudioResume();
-    //         audioResumed = true;
-    //     }
-    // }
     RayTal::Main* app = static_cast<RayTal::Main*>(arg);
     app->IterateFrame();
 }

@@ -58,7 +58,7 @@ int main(void)
     }
 
     // Texture
-    Texture2D *logoTex = app.getResourceManager()->getTexture("raylib_32x32.png");
+    Texture2D* logoTex = app.getResourceManager()->getTexture("raylib_32x32.png");
 
     //-------
     std::string confPathText = TextFormat("Base Path: %s", getBasePath().c_str());
@@ -109,7 +109,7 @@ int main(void)
     };
     //------
     Vector2 SliderSize = { 100.f, 20.f };
-    Vector2 ConsoleSize = { 100.f, 100.f };
+    // Vector2 ConsoleSize = { 100.f, 100.f };
 
     app.OnRender = [&]() {
 
@@ -156,29 +156,30 @@ int main(void)
         }
 
         // normalized 25 - 500 fps
-        static float fpsLimit = 500.f / (F32)app.getSettings()->getFPSLimit();
+        const float myLimit = 500.f;
+        static float fpsLimit = myLimit / (F32)app.getSettings()->getFPSLimit();
         if (gui.Slider(100.f, "FPS Limit", &fpsLimit, 0.05f, 1.f)) {
-            app.getSettings()->setFPSLimit((U32)(fpsLimit * 500.f));
+            app.getSettings()->setFPSLimit((U32)(fpsLimit * myLimit));
         }
 
         if (gui.CheckBox(defaultGuiSize, "FullScreen", &app.getSettings()->FullScreen)) {
             app.getSettings()->setFullScreen(app.getSettings()->FullScreen);
         }
 
-        gui.Begin(GetScreenWidth() / 2.0 -SliderSize.x / 2.f, GetScreenHeight() - 240);
-
-        gui.setStates(ConsoleSize);
-        GuiListView(gui.mLastBounds, consoleStr.data(), nullptr, nullptr);
-
-
-        gui.setStates(SliderSize);
-        if (GuiTextBox(gui.mLastBounds, consoleInputStr.data(), 256, true)) {
-            consoleStr += consoleInputStr.c_str();
-            consoleStr += "\r\n";
-            Log("wrote text %s, new Str: %s ",consoleInputStr.c_str(), consoleStr.c_str() );
-
-            consoleInputStr = "";
-        }
+        // gui.Begin(GetScreenWidth() / 2.0 -SliderSize.x / 2.f, GetScreenHeight() - 240);
+        //
+        // gui.setStates(ConsoleSize);
+        // GuiListView(gui.mLastBounds, consoleStr.data(), nullptr, nullptr);
+        //
+        //
+        // gui.setStates(SliderSize);
+        // if (GuiTextBox(gui.mLastBounds, consoleInputStr.data(), 256, true)) {
+        //     consoleStr += consoleInputStr.c_str();
+        //     consoleStr += "\r\n";
+        //     Log("wrote text %s, new Str: %s ",consoleInputStr.c_str(), consoleStr.c_str() );
+        //
+        //     consoleInputStr = "";
+        // }
 
         gui.End();
 

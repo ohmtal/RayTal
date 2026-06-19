@@ -34,22 +34,10 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 # include(FetchContent)
 # ------------- RayTal
 set(RAYTAL_DIR "${CMAKE_CURRENT_LIST_DIR}/../" CACHE PATH "Path to RayTal")
-# later as lib .... add_subdirectory()
-set(RAYTAL_SRC
-  ${RAYTAL_DIR}/RayTal/Core.h
-  ${RAYTAL_DIR}/RayTal/Settings.h
-  ${RAYTAL_DIR}/RayTal/Main.h
-  ${RAYTAL_DIR}/RayTal/Tools.cpp
-  ${RAYTAL_DIR}/RayTal/Tools.h
-  ${RAYTAL_DIR}/RayTal/Main.cpp
-  ${RAYTAL_DIR}/RayTal/TypeDef.h
-  ${RAYTAL_DIR}/RayTal/Settings.cpp
-  ${RAYTAL_DIR}/RayTal/Gui.h
-  ${RAYTAL_DIR}/RayTal/Gui.cpp
-  ${RAYTAL_DIR}/RayTal/ResourceManager.h
-  ${RAYTAL_DIR}/RayTal/ResourceManager.cpp
-  ${RAYTAL_DIR}/RayTal/FileHelper.h
-)
+
+#  add RAYTAL_SRC
+include("${RAYTAL_DIR}/RayTal.cmake")
+
 
 # ------------- RayLib
 # set(PLATFORM "SDL" CACHE STRING "raylib platform" FORCE)
