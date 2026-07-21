@@ -1,8 +1,9 @@
 #include "Main.h"
 #include "ResourceManager.h"
 
-#ifdef __EMSCRIPTEN__
+#ifdef defined(PLATFORM_WEB)
 #include <emscripten/emscripten.h>
+#endif
 
 //-------------------------------------------------------------------------------
 // webGL main loop:
